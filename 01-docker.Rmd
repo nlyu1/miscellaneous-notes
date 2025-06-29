@@ -1,0 +1,3 @@
+# Docker 
+
+Notes following full stack open's [docker chapter](https://fullstackopen.com/en/part12).  

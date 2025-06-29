@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Consensus | Blockchain</title>
+  <meta name="description" content="1 Consensus | Blockchain" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Consensus | Blockchain" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Consensus | Blockchain" />
+  
+  
+  
+
+<meta name="author" content="Nicholas Lyu" />
+
+
+<meta name="date" content="2025-06-28" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="bibliography.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="consensus.html"><a href="consensus.html"><i class="fa fa-check"></i><b>1</b> Consensus</a>
+<ul>
+<li class="chapter" data-level="" data-path="consensus.html"><a href="consensus.html#fundAssump"><i class="fa fa-check"></i>Fundamental assumptions</a></li>
+<li class="chapter" data-level="" data-path="consensus.html"><a href="consensus.html#singleShot"><i class="fa fa-check"></i>Single-shot consensus</a></li>
+<li class="chapter" data-level="" data-path="consensus.html"><a href="consensus.html#smr"><i class="fa fa-check"></i>State-machine replication</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Blockchain</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="consensus" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Consensus<a href="consensus.html#consensus" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<ol style="list-style-type: decimal">
+<li>Fundamental assumptions: digital signature and point-to-point communication <a href="consensus.html#def:fundAssumptions">1.1</a>.</li>
+<li>Other assumptions: permissioned setting <a href="consensus.html#def:permissionSetting">1.3</a>, public-key infrastructure <a href="consensus.html#def:pki">1.4</a>, and synchronous model <a href="consensus.html#def:syncModel">1.5</a>.</li>
+<li>Single-shot concensus: <strong>Byzantine Broadcast</strong> <a href="consensus.html#def:bbSetup">1.6</a> and <strong>Byzantine Agreement</strong> <a href="consensus.html#def:baSetup">1.9</a>.
+<ul>
+<li><strong>Dolev-Strong</strong> (theorem <a href="consensus.html#thm:dolevStrongResult">1.1</a>): BB is solvable under permissioned setting, synchronous model, and PKI assumptions regardless of Byzantine portion.</li>
+<li>Equivalence of BA and BB when <span class="math inline">\(f&lt;n/2\)</span>: theorem <a href="consensus.html#thm:singleShotReduction">1.2</a>.</li>
+</ul></li>
+<li>Multi-shot concensus: <strong>State-Machine Replication</strong> <a href="consensus.html#def:smrSetup">1.10</a>. Reduction to BB under permissioned setting and synchronous model (theorem <a href="consensus.html#thm:smrBBReduction">1.3</a>).</li>
+</ol>
+<div id="fundAssump" class="section level2 unnumbered hasAnchor">
+<h2>Fundamental assumptions<a href="consensus.html#fundAssump" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="definition">
+<p><span id="def:fundAssumptions" class="definition"><strong>Definition 1.1  (fundamental assumptions of blockchains) </strong></span>Throughout these notes, we assume the existence of:</p>
+<ol style="list-style-type: decimal">
+<li>A correct, secure digital signature scheme (definition <a href="consensus.html#def:digSig">1.2</a> below).
+<ul>
+<li>Allows node <span class="math inline">\(A\)</span> to verify <span class="math inline">\(B\)</span>’s claim that “node <span class="math inline">\(C\)</span> said …”.</li>
+</ul></li>
+<li>Point-to-point communication (internet). Minimal assumptions on latency / reliability.</li>
+</ol>
+</div>
+<div class="definition">
+<p><span id="def:digSig" class="definition"><strong>Definition 1.2  (digital signature scheme) </strong></span>A <strong>digital signature scheme</strong> consists of three algorithms, <span class="math inline">\(\mathrm{Gen}, \mathrm{Sign}, \mathrm{Vf}\)</span> satisfying:</p>
+<ul>
+<li><span class="math inline">\(\mathrm{Gen}(1^\lambda) = \mathrm{pk, sk}\)</span>: consumes a security parameter <span class="math inline">\(\lambda\)</span> to generate a (public, secret)-key pair.</li>
+<li><span class="math inline">\(\mathrm{Sign}(\mathrm{sk}, m) = \sigma\)</span>: consumes a secret key and a message to obtain a signature.</li>
+<li><span class="math inline">\(\mathrm{Vf}(\mathrm{pk}, m, \sigma) = \{0, 1\}\)</span>: verification consuming public key, message, and signature to output acceptance or rejection.</li>
+</ul>
+<p>A digital signature scheme <span class="math inline">\((\mathrm{Gen}, \mathrm{Sign}, \mathrm{Vf})\)</span> is:</p>
+<ol style="list-style-type: decimal">
+<li><strong>correct</strong> if <span class="math inline">\(\mathrm{Vf}(\mathrm{pk}, m, \mathrm{Sign}(\mathrm{sk}, m)) = 1\)</span>.</li>
+<li><strong>secure</strong> if no poly-<span class="math inline">\(\lambda\)</span> adversary can forge an acceptable signature reliably.</li>
+</ol>
+</div>
+<p>Note that the signature must be message-dependent, else signatures can be copied to sign other messages.</p>
+<p>We consider <strong>nodes</strong>, which are local computers which can run code and communicate with each other in a point-to-point fashion. A <strong>protocol</strong> is an algorithm which a node can run.</p>
+<div class="definition">
+<p><span id="def:permissionSetting" class="definition"><strong>Definition 1.3  (permissioned setting) </strong></span>The set of nodes responsible for running the protocol is known up front. In other words, the protocol description itself can reference specific nodes which are running it.</p>
+<ul>
+<li>For a company managing database copies, permissioned setting is natural.</li>
+<li>Bitcoin and Ethereum protocols are likely permissionless.</li>
+</ul>
+</div>
+<div class="definition">
+<p><span id="def:pki" class="definition"><strong>Definition 1.4  (public key infrastructure) </strong></span>Stronger assumption than permissioned setting: all nodes have distinct public-private key pairs, and public keys are common knowledge.</p>
+</div>
+<div class="definition">
+<p><span id="def:syncModel" class="definition"><strong>Definition 1.5  (synchronous model) </strong></span>The synchronous model, nodes have:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Shared global clock</strong>: nodes can agree on a global timestep.</li>
+<li><strong>Bounded message delays</strong>: w.l.o.g., message sent at time <span class="math inline">\(t\)</span> will be delivered by <span class="math inline">\(t+1\)</span>.</li>
+</ol>
+</div>
+</div>
+<div id="singleShot" class="section level2 unnumbered hasAnchor">
+<h2>Single-shot consensus<a href="consensus.html#singleShot" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Consider a sequence of <span class="math inline">\([n]=\{1, 2, \dots, n\}\)</span> nodes. Given a protocol, nodes are of the following types; we may know a bound on the number of nodes in each type, but we do not know the nodes’ identity:</p>
+<ul>
+<li><strong>Honest</strong>: executes the prescribed protocol. This includes both the <em>validity</em> and <em>timeliness</em> of messages.</li>
+<li><strong>Byzantine</strong>: behaves arbitrarily; byzantine nodes can collude.</li>
+</ul>
+<div class="definition">
+<p><span id="def:bbSetup" class="definition"><strong>Definition 1.6  (Byzantine Broadcast) </strong></span>We’re working in a permissioned setting.</p>
+<ol style="list-style-type: decimal">
+<li>One node is the <strong>sender</strong> and the other non-senders. The sender’s identity is common knowledge.</li>
+<li>The sender has access to <em>private input</em> <span class="math inline">\(v^*\in V\)</span>.</li>
+</ol>
+<p>A solution to the Byzantine broadcast problem must satisfy:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Termination</strong>: every honest node <span class="math inline">\(j\)</span> eventually halts with some output <span class="math inline">\(v\in V\)</span>.</li>
+<li><strong>Agreement</strong>: all honest nodes halt with the same output, irrespective of whether the sender is honest.</li>
+<li><strong>Validity</strong>: if the sender is honest, then the common output of honest nodes is <span class="math inline">\(v^*\)</span>.</li>
+</ol>
+<p>Note that agreement without validity is trivial (all nodes output <span class="math inline">\(\perp\)</span>), as well as validity without agreement (echo sender). Also note that validity implies agreement when the sender is honest.</p>
+</div>
+<div class="definition">
+<p><span id="def:convMessDS" class="definition"><strong>Definition 1.7  (convincing message) </strong></span>Node <span class="math inline">\(j\)</span> is convinced of value <span class="math inline">\(v\)</span> at time <span class="math inline">\(t\)</span> if it receives <em>a message</em> prior to <span class="math inline">\(t\)</span> that:</p>
+<ol style="list-style-type: decimal">
+<li>References <span class="math inline">\(v\)</span>.</li>
+<li>Signed first by the sender.</li>
+<li>Also signed by at least <span class="math inline">\(t-1\)</span> distinct non-sender nodes apart from <span class="math inline">\(j\)</span>.</li>
+</ol>
+</div>
+<div class="definition">
+<p><span id="def:dolevStrong" class="definition"><strong>Definition 1.8  (Dolev-Strong protocol) </strong></span>At <span class="math inline">\(t=0\)</span>, the sender sends <span class="math inline">\(v^*\)</span> to all nodes and outputs <span class="math inline">\(v^*\)</span>. Next repeat for <span class="math inline">\(t=1, \dots, f+1\)</span>:</p>
+<ul>
+<li>If a non-sender <span class="math inline">\(j\)</span> is newly convinced of <span class="math inline">\(v\)</span> at time <span class="math inline">\(t\)</span> by message <span class="math inline">\(m\)</span>, the node adds its own signature to <span class="math inline">\(m\)</span> and sends <span class="math inline">\((m, s)\)</span> to all other non-senders.</li>
+</ul>
+<p>For each nonsender, if outputs <span class="math inline">\(v\)</span> it’s convinced by exactly one <span class="math inline">\(v\)</span>, else outputs <span class="math inline">\(\perp\)</span>.</p>
+</div>
+<div class="theorem">
+<p><span id="thm:dolevStrongResult" class="theorem"><strong>Theorem 1.1  (Dolev-Strong) </strong></span>Byzantine Broadcast <a href="consensus.html#def:bbSetup">1.6</a> is solvable under:</p>
+<ul>
+<li>Permissioned setting with <span class="math inline">\(n\)</span> nodes <a href="consensus.html#def:permissionSetting">1.3</a> under PKI assumptions <a href="consensus.html#def:pki">1.4</a>.</li>
+<li>Synchronous communication <a href="consensus.html#def:syncModel">1.5</a>.</li>
+<li>Arbitrary bound on Byzantine nodes. Note that the <span class="math inline">\(f=n, n-1\)</span> case satisfies validity and agreement trivially.</li>
+</ul>
+</div>
+<details>
+<summary>
+Proof idea: honest nodes broadcast what they’re convinced by, and protocol runs for long enough so that there’re not enough Byzantine nodes to collude
+</summary>
+<p>Let’s first prove validity; considering an honest sender (validity only has bite for honest senders), an honest node can only ever be convinced of <span class="math inline">\(v^*\)</span> since convincing messages has to be signed by the sender, and Byzantine nodes can’t forge the sender’s signature. Honest non-senders are also convinced by the honest sender at <span class="math inline">\(t=0\)</span>.</p>
+<p>Proceeding to agreement: validity implies agreement if the sender is honest. Assuming Byzantine sender, we prove that when protocol terminates, <em>all honest non-senders are convinced of the same set of values</em>. Assuming that an honest non-sender <span class="math inline">\(j\)</span> is <em>newly</em> convinced at:</p>
+<ul>
+<li><span class="math inline">\(t\leq f\)</span>: this implies that the sender and <span class="math inline">\(t-1\)</span> non-senders signed the message. Then <span class="math inline">\(j\)</span> proceeds to sign the message and broadcast; this message convinces all non-senders at <span class="math inline">\(t+1\)</span>.</li>
+<li><span class="math inline">\(t=f+1\)</span>: this implies that the Byzantine sender and <span class="math inline">\(t-1=f\)</span> non-senders signed the message. Since there’re at most <span class="math inline">\(f\)</span> Byzantine nodes, at least one honest non-sender has signed the message, so all other nodes are convinced.</li>
+</ul>
+Note that the <span class="math inline">\(t=f+1\)</span> round of checks is paramount; suppose we terminate at time <span class="math inline">\(t\)</span>, then the Byzantine nodes can collude to produce a convincing message to one of the honest nodes, which does not have time to broadcast this to other honest nodes.
+</details>
+<div class="definition">
+<p><span id="def:baSetup" class="definition"><strong>Definition 1.9  (Byzantine Agreement) </strong></span>Similar to Byzantine broadcast <a href="consensus.html#def:bbSetup">1.6</a>, but each node has private bit <span class="math inline">\(b_j\in \{0, 1\}\)</span> with at most <span class="math inline">\(f\)</span> Byzantine nodes. Solution must satisfy termination and:</p>
+<ol style="list-style-type: decimal">
+<li>Agreement: all honest nodes output the same bit.</li>
+<li>Validity: when all nodes have the same private input, they all terminate with <span class="math inline">\(b\)</span>.</li>
+</ol>
+</div>
+<div class="theorem">
+<p><span id="thm:singleShotReduction" class="theorem"><strong>Theorem 1.2  (deterministic BA-BB reduction) </strong></span>Given <span class="math inline">\(f&lt;n/2\)</span>, there exists a deterministic BA solution iff there exists a deterministic BB solution.</p>
+</div>
+<p>Given <span class="math inline">\(\pi\)</span> solving the BB problem, construct a BA protocol as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Nodes take turn to Byzantine-broadcast their private input <span class="math inline">\(b_j\)</span>.</li>
+<li>Output majority value.</li>
+</ol>
+<ul>
+<li>Validity: when all nodes have the same private input <span class="math inline">\(b\)</span>, their private inputs are consistently broadcasted to all other honest nodes <em>since <span class="math inline">\(\pi\)</span> is valid</em>. Since <span class="math inline">\(f&lt;n/2\)</span>, honest nodes have consistent output by majority vote.</li>
+<li>Consistency: all honest nodes have the same “perception” of other nodes, so majority votes are consistent.</li>
+</ul>
+<p>Given a BA protocol <span class="math inline">\(\pi\)</span>, construct a BB protocol as follows:</p>
+<ol style="list-style-type: decimal">
+<li><span class="math inline">\(T=0\)</span>: non-senders run BA with <span class="math inline">\(b_j=0\)</span>, sender runs with <span class="math inline">\(v^*\)</span>.</li>
+<li><span class="math inline">\(T=1\)</span>: non-senders run BA with <span class="math inline">\(b_j=1\)</span>, sender runs with <span class="math inline">\(v^*\)</span>.</li>
+</ol>
+</div>
+<div id="smr" class="section level2 unnumbered hasAnchor">
+<h2>State-machine replication<a href="consensus.html#smr" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Byzantine broadcast is also known as a <strong>one-shot consensus</strong> problem. We proceed to <strong>multi-shot consensus</strong> and demonstrate reduction to Byzantine Broadcast.</p>
+<div class="definition">
+<p><span id="def:smrSetup" class="definition"><strong>Definition 1.10  (state-machine replication) </strong></span>We’re working in a permissioned setting. Each honest node receives an incoming stream of requests and attempts to make this common knowledge; it also maintains an <strong>append-only log</strong>. A solution should satisfy</p>
+<ol style="list-style-type: decimal">
+<li><strong>Liveliness</strong>: every request to an honest node is eventually included in the log of honest nodes.</li>
+<li><strong>Consistency</strong>: at any time, the log of each honest replica are pairwise prefixes (i.e. order cannot be messed up).</li>
+</ol>
+</div>
+<div class="theorem">
+<p><span id="thm:smrBBReduction" class="theorem"><strong>Theorem 1.3  (SMR reduces to BB) </strong></span>In a synchronous and permissioned setting with PKI, given a BB protocol <span class="math inline">\(\pi\)</span> which terminates in time <span class="math inline">\(T\)</span>, there exists a solution to SMR. At each step <span class="math inline">\(0, T, 2T, 3T, \dots\)</span></p>
+<ol style="list-style-type: decimal">
+<li>Define the leader node by round-robin ordering.</li>
+<li>The leader collects its own not-yet-included requests and appends them to its local log.</li>
+<li>The leader broadcasts the updated local log via <span class="math inline">\(\pi\)</span>.</li>
+<li>When <span class="math inline">\(\pi\)</span> terminates, every node <span class="math inline">\(j\)</span> appends its not-yet-included requests to the received log.</li>
+</ol>
+</div>
+<details>
+<summary>
+BB (validity, agreement)<span class="math inline">\(\implies\)</span> SMR (liveliness, consistency)
+</summary>
+<p>Liveliness: request submitted to <span class="math inline">\(j\)</span> will be included in the log of all honest nodes when it’s <span class="math inline">\(j\)</span>’s term to be the leader, by <span class="math inline">\(\pi\)</span>’s <em>validity</em> property.</p>
+<p>Consistency: <span class="math inline">\(\pi\)</span>’s consistency implies that nodes execute the appending operation consistently.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliography.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

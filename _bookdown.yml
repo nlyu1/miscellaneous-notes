@@ -1,0 +1,4 @@
+book_filename: "Blockchain Notes"
+language:
+output_dir: "docs"
+delete_merged_file: true
