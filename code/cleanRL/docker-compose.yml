@@ -1,0 +1,11 @@
+services:
+  app: 
+    image: pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+    build: .
+    stdin_open: true 
+    tty: true 
+    ports:
+      - 8888:8888
+    gpus: all 
+    volumes: 
+      - ./src:/workspace/src

@@ -97,3 +97,98 @@ docker tag sample_image:latest nlyu1/sample_image:latest
 docker push nlyu1/sample_image:latest
 ```
 To pull from elsewhere, run `docker pull nlyu1/sample_image:latest`. 
+
+## Explanation from ChatGPT 
+
+When you run `docker compose up` and `down`, Compose is really orchestrating the same Docker primitives you know from `docker build`, `docker run`, `docker stop`, and `docker rm`—but it does it for *all* your services in one go.
+
+---
+
+### 1. Which Dockerfile is used? Do I see the build logs?
+
+* **Build context & Dockerfile location**
+  Because you have
+
+  ```yaml
+  build: .
+  ```
+
+  Compose will look in `.` (your project root) for a file named `Dockerfile`.
+* **Image tag**
+  You also set
+
+  ```yaml
+  image: hiyouga/llamafactory:latest
+  ```
+
+  so after it builds that Dockerfile, it tags the resulting image as `hiyouga/llamafactory:latest`.
+* **Logs**
+
+  * If the image doesn’t already exist locally (or if you pass `--build`), Compose will invoke `docker build .` for you and stream the usual build logs right into your terminal.
+  * On subsequent `up` calls, if nothing has changed in the build context, Compose will skip the rebuild unless you force it.
+
+---
+
+### 2. What happens when you run `docker compose up`?
+
+1. **Networks & volumes**
+   Compose creates any networks and named volumes declared in your file (if they don’t already exist).
+2. **Images**
+
+   * For services with a `build:` block, it builds (or reuses) the image.
+   * For services without `build:`, it pulls from registry if missing.
+3. **Containers**
+
+   * If no container exists for `llamafactory`, it **creates** one (same as `docker create …`) and then **starts** it.
+   * If a container **has** already been created by Compose:
+
+     * **Unchanged config:** it simply starts the stopped container (so you keep your previous data in volumes, etc.).
+     * **Changed config or forced recreate:** Compose will tear down the old container and spin up a fresh one.
+4. **Flags you recognize**
+
+   * `stdin_open: true` + `tty: true` → the `-it` behavior
+   * `ipc: host`, `gpus: all`, `ports:`, `volumes:` → passed straight through under the hood
+
+You can always run
+
+```bash
+docker compose up --build --force-recreate
+```
+
+to rebuild images and recreate containers every time.
+
+---
+
+### 3. What happens when you run `docker compose down`?
+
+* **Stops** all running containers in that Compose project (same as `docker stop`).
+* **Removes** those containers and the default network that Compose created.
+* **Leaves** behind:
+
+  * The images you built or pulled.
+  * Any named volumes (so your data survives) unless you add `-v`.
+* If you want to clean everything up, you can do:
+
+  ```bash
+  docker compose down --rmi all -v
+  ```
+
+  which also removes images (`--rmi all`) and named volumes (`-v`).
+
+---
+
+#### TL;DR Workflow
+
+1. **Write your Dockerfile** in `.`
+2. **Declare** in `docker-compose.yml` both `build: .` and `image: your/name:tag` if you want a custom build **and** a consistent tag
+3. **`docker compose up`**
+
+   * builds (if needed),
+   * creates (if needed),
+   * starts (or restarts) your containers
+4. **`docker compose down`**
+
+   * stops & removes containers and network,
+   * leaves images & volumes unless you tell it otherwise
+
+That’s the Compose lifecycle mapping back to the classic Docker commands you already know.
