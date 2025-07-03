@@ -1,3 +1,60 @@
 # Docker 
 
 Notes following full stack open's [docker chapter](https://fullstackopen.com/en/part12). 
+Notes following full stack open's [docker chapter](https://fullstackopen.com/en/part12).  
+
+## Basic commands 
+
+:::{.definition name="containers and images"}
+A docker **image** is an immutable file (collection). A **container** is a running (and mutable) instance of an image. Container can be crystallized into containers. 
+:::
+
+1. **Running containers**: `docker container run hello-world`
+    - **Interactive mode**: `docker container run -it ubuntu bash`. 
+    - `docker container run [OPTIONS] IMAGE [COMMAND]`
+    - _Remove after execution_: `docker container run --rm ubuntu ls .`
+    - Run with name: `docker container run -it --name [name] [doncainter name] [command]`
+2. **Image ops**: 
+    - **Listing**: `docker image ls`
+2. **Container operations**: 
+    - Listing: `docker container ls -a` (includes exited ones)
+    - Deleting: `docker container rm [ID prefix]`. 
+    - **Starting an initialized container**: `docker start [container name]`
+        - Start with $-it$ to create a binding, interactive process 
+    - **Kill main process of running container**: `docker kill [container]`
+    - **Create additional connection**: `docker exec -it [name] /bin/bash`. 
+3. **Committing & manipulation**: 
+    - `docker commit CONTAINER-ID-OR-CONTAINER-NAME NEW-IMAGE-NAME`
+    - **Copy**:     docker container cp [local path] [image-name]:[container path]
+
+Sample docker image: `pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel`
+
+Sample workflow 
+```
+
+docker container ls -a 
+docker image ls -a 
+
+docker container run -it --gpus all --name gpu_starter pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+
+docker start gpu_starter
+docker attach 
+docker exec -it gpu_starter /bin/bash
+docker kill gpu_starter 
+
+docker container cp 01-docker.Rmd  gpu_starter:/workspace
+```
+
+## Dockerfile 
+
+Sample dockerfile: 
+```
+FROM pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+COPY ./simple.py /workspace 
+
+CMD python /workspace/simple.py
+``` 
+
+1. Run in the dockerfile folder: 
+`docker build . -t gpu_starter`
+2. Running: `docker container run --gpus all --name gpu --rm -it gpu_starter`
