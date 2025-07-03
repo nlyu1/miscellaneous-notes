@@ -4,4 +4,8 @@ basic-commands
 dockerfile
 docker-compose
 publishing-images
-project-in-action
+explanation-from-chatgpt
+which-dockerfile-is-used-do-i-see-the-build-logs
+what-happens-when-you-run-docker-compose-up
+what-happens-when-you-run-docker-compose-down
+tldr-workflow
