@@ -14,6 +14,7 @@ A docker **image** is an immutable file (collection). A **container** is a runni
     - `docker container run [OPTIONS] IMAGE [COMMAND]`
     - _Remove after execution_: `docker container run --rm ubuntu ls .`
     - Run with name: `docker container run -it --name [name] [doncainter name] [command]`
+    - Run with binding: `docker container run ... -v FILE-IN-HOST:FILE-IN-CONTAINER`. Binds will be visible on both sides. 
 2. **Image ops**: 
     - **Listing**: `docker image ls`
 2. **Container operations**: 
@@ -47,6 +48,8 @@ docker container cp 01-docker.Rmd  gpu_starter:/workspace
 
 ## Dockerfile 
 
+Dockerfile defines the workflow for building an image. 
+
 Sample dockerfile: 
 ```
 FROM pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
@@ -55,6 +58,42 @@ COPY ./simple.py /workspace
 CMD python /workspace/simple.py
 ``` 
 
+Where `simple.py` 
+
 1. Run in the dockerfile folder: 
 `docker build . -t gpu_starter`
-2. Running: `docker container run --gpus all --name gpu --rm -it gpu_starter`
+2. Running: `docker container run --gpus all --name gpu -p 8888:8888 --rm -it gpu_starter`
+
+## Docker compose 
+
+Note that the workflow above still involves (1) using the `Dockerfile` to build an image, and (2) running the image with specified parameters. The second can be automated by `docker compose`. Equivalent specification in `docker-compose.yml`: 
+
+```
+services:
+  app: 
+    image: pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+    build: .
+    stdin_open: true 
+    tty: true 
+    ports:
+      - 8888:8888
+    gpus: all 
+    volumes: 
+      - ~/Downloads:/workspace/downloads
+```
+
+- Running `docker compose up --build` will create the image and 
+    - Images are retained. Remove by `docker compose down --rmi all` 
+    - Use `docker compose up --build -d` to detach after building 
+- Compose up will also automatically create containers. Use `docker compose down` to remove all containers for compose services. 
+- Run `docker container ls -a` and `docker attach [container]` to interact
+
+## Publishing images 
+
+To publish, run 
+```
+docker login
+docker tag sample_image:latest nlyu1/sample_image:latest
+docker push nlyu1/sample_image:latest
+```
+To pull from elsewhere, run `docker pull nlyu1/sample_image:latest`. 

@@ -1,2 +1,6 @@
 def:unlabeled-div-1
 docker
+basic-commands
+dockerfile
+docker-compose
+publishing-images

@@ -73,7 +73,13 @@
 
 <ul class="summary">
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
-<li class="chapter" data-level="1" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>1</b> Docker</a></li>
+<li class="chapter" data-level="1" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>1</b> Docker</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="docker.html"><a href="docker.html#basic-commands"><i class="fa fa-check"></i><b>1.1</b> Basic commands</a></li>
+<li class="chapter" data-level="1.2" data-path="docker.html"><a href="docker.html#dockerfile"><i class="fa fa-check"></i><b>1.2</b> Dockerfile</a></li>
+<li class="chapter" data-level="1.3" data-path="docker.html"><a href="docker.html#docker-compose"><i class="fa fa-check"></i><b>1.3</b> Docker compose</a></li>
+<li class="chapter" data-level="1.4" data-path="docker.html"><a href="docker.html#publishing-images"><i class="fa fa-check"></i><b>1.4</b> Publishing images</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
 </ul>
 
@@ -94,7 +100,10 @@
             <section class="normal" id="section-">
 <div id="docker" class="section level1 hasAnchor" number="1">
 <h1><span class="header-section-number">1</span> Docker<a href="docker.html#docker" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>Notes following full stack open’s <a href="https://fullstackopen.com/en/part12">docker chapter</a>.</p>
+<p>Notes following full stack open’s <a href="https://fullstackopen.com/en/part12">docker chapter</a>.
+Notes following full stack open’s <a href="https://fullstackopen.com/en/part12">docker chapter</a>.</p>
+<div id="basic-commands" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Basic commands<a href="docker.html#basic-commands" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="definition">
 <p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 1.1  (containers and images) </strong></span>A docker <strong>image</strong> is an immutable file (collection). A <strong>container</strong> is a running (and mutable) instance of an image. Container can be crystallized into containers.</p>
 </div>
@@ -104,7 +113,8 @@
 <li><strong>Interactive mode</strong>: <code>docker container run -it ubuntu bash</code>.</li>
 <li><code>docker container run [OPTIONS] IMAGE [COMMAND]</code></li>
 <li><em>Remove after execution</em>: <code>docker container run --rm ubuntu ls .</code></li>
-<li>Run with name: `docker container run -it –name [name] [doncainter name] [command]</li>
+<li>Run with name: <code>docker container run -it --name [name] [doncainter name] [command]</code></li>
+<li>Run with binding: <code>docker container run ... -v FILE-IN-HOST:FILE-IN-CONTAINER</code>. Binds will be visible on both sides.</li>
 </ul></li>
 <li><strong>Image ops</strong>:
 <ul>
@@ -119,7 +129,7 @@
 <li>Start with <span class="math inline">\(-it\)</span> to create a binding, interactive process</li>
 </ul></li>
 <li><strong>Kill main process of running container</strong>: <code>docker kill [container]</code></li>
-<li><strong>Create additional connection</strong>: <code>docker exec -it [name]</code>.</li>
+<li><strong>Create additional connection</strong>: <code>docker exec -it [name] /bin/bash</code>.</li>
 </ul></li>
 <li><strong>Committing &amp; manipulation</strong>:
 <ul>
@@ -129,12 +139,67 @@
 </ol>
 <p>Sample docker image: <code>pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel</code></p>
 <p>Sample workflow</p>
-<pre><code>docker container run -it --gpus all --name gpu_starter pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+<pre><code>
 docker container ls -a 
-docker commit [container] [new name]
+docker image ls -a 
 
-docker container run -it --name </code></pre>
+docker container run -it --gpus all --name gpu_starter pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
 
+docker start gpu_starter
+docker attach 
+docker exec -it gpu_starter /bin/bash
+docker kill gpu_starter 
+
+docker container cp 01-docker.Rmd  gpu_starter:/workspace</code></pre>
+</div>
+<div id="dockerfile" class="section level2 hasAnchor" number="1.2">
+<h2><span class="header-section-number">1.2</span> Dockerfile<a href="docker.html#dockerfile" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Dockerfile defines the workflow for building an image.</p>
+<p>Sample dockerfile:</p>
+<pre><code>FROM pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+COPY ./simple.py /workspace 
+
+CMD python /workspace/simple.py</code></pre>
+<p>Where <code>simple.py</code></p>
+<ol style="list-style-type: decimal">
+<li>Run in the dockerfile folder:
+<code>docker build . -t gpu_starter</code></li>
+<li>Running: <code>docker container run --gpus all --name gpu -p 8888:8888 --rm -it gpu_starter</code></li>
+</ol>
+</div>
+<div id="docker-compose" class="section level2 hasAnchor" number="1.3">
+<h2><span class="header-section-number">1.3</span> Docker compose<a href="docker.html#docker-compose" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Note that the workflow above still involves (1) using the <code>Dockerfile</code> to build an image, and (2) running the image with specified parameters. The second can be automated by <code>docker compose</code>. Equivalent specification in <code>docker-compose.yml</code>:</p>
+<pre><code>services:
+  app: 
+    image: pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+    build: .
+    stdin_open: true 
+    tty: true 
+    ports:
+      - 8888:8888
+    gpus: all 
+    volumes: 
+      - ~/Downloads:/workspace/downloads</code></pre>
+<ul>
+<li>Running <code>docker compose up --build</code> will create the image and
+<ul>
+<li>Images are retained. Remove by <code>docker compose down --rmi all</code></li>
+<li>Use <code>docker compose up --build -d</code> to detach after building</li>
+</ul></li>
+<li>Compose up will also automatically create containers. Use <code>docker compose down</code> to remove all containers for compose services.</li>
+<li>Run <code>docker container ls -a</code> and <code>docker attach [container]</code> to interact</li>
+</ul>
+</div>
+<div id="publishing-images" class="section level2 hasAnchor" number="1.4">
+<h2><span class="header-section-number">1.4</span> Publishing images<a href="docker.html#publishing-images" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To publish, run</p>
+<pre><code>docker login
+docker tag sample_image:latest nlyu1/sample_image:latest
+docker push nlyu1/sample_image:latest</code></pre>
+<p>To pull from elsewhere, run <code>docker pull nlyu1/sample_image:latest</code>.</p>
+
+</div>
 </div>
             </section>
 
