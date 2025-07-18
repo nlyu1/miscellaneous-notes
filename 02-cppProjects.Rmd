@@ -1,0 +1,53 @@
+# Building C++ Projects 
+
+Important components: 
+
+1. CMake [@cmake]: systemic orchestration of C++ build processes. 
+2. 
+
+## CMake {#cmake -}
+
+See [tutorial](https://cmake.org/cmake/help/latest/guide/tutorial/index.html) for comprehensive guide.
+
+- CMake consumes `CMakeLists.txt` in the source tree. Outputs `Makefile` (or equivalents) for subsequent building. 
+- Typical practice: create `build` directory, populate with `cmake` outputs, and run build. 
+- It supports hierarchal specification and multiple build targets. 
+
+### Installing CMake {-}
+
+Installing newest version of cmake: find latest version [here](https://cmake.org/download/), specify version and build (e.g. `4.0.3` is as below): 
+```
+version=4.0
+build=3
+## don't modify from here
+wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
+tar -xzvf cmake-$version.$build.tar.gz
+cd cmake-$version.$build/
+
+./bootstrap
+make -j$(nproc)
+sudo make install
+```
+
+This should have installed cmake to `/usr/local/bin`. If this is this not in system path (e.g. `cmake` is not found), run 
+
+```
+echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Scikit-build-core {-}
+
+[Scikit-build-core](https://scikit-build-core.readthedocs.io/en/latest/) is a library for building Python packages from CMake source code. 
+
+1. It consumes a `pyproject.toml` file, standard for python packaging. 
+2. Running `pip install .` installs the python package. 
+
+It invokes build backends (e.g. CMake) under the hood to build the package, replacing the need for complicated `setup.py`. 
+
+## Smart pointers {-}
+
+Great resources:
+
+1. David Olsen's [talk, CppCon 2022](https://www.youtube.com/watch?v=YokY6HzLkXs)
+2. Mike Shah's [modern C++ series](https://www.youtube.com/playlist?list=PLvv0ScY6vfd8j-tlhYVPYgiIyXduu6m-L). 

@@ -3,7 +3,7 @@
 Notes following full stack open's [docker chapter](https://fullstackopen.com/en/part12). 
 Notes following full stack open's [docker chapter](https://fullstackopen.com/en/part12).  
 
-## Basic commands 
+## Basic commands {-}
 
 :::{.definition name="containers and images"}
 A docker **image** is an immutable file (collection). A **container** is a running (and mutable) instance of an image. Container can be crystallized into containers. 
@@ -46,7 +46,7 @@ docker kill gpu_starter
 docker container cp 01-docker.Rmd  gpu_starter:/workspace
 ```
 
-## Dockerfile 
+## Dockerfile {-}
 
 Dockerfile defines the workflow for building an image. 
 
@@ -87,7 +87,7 @@ services:
 - Compose up will also automatically create containers. Use `docker compose down` to remove all containers for compose services. 
 - Run `docker container ls -a` and `docker attach [container]` to interact
 
-## Publishing images 
+## Publishing images {-}
 
 To publish, run 
 ```
@@ -97,7 +97,7 @@ docker push nlyu1/sample_image:latest
 ```
 To pull from elsewhere, run `docker pull nlyu1/sample_image:latest`. 
 
-## Explanation from ChatGPT 
+## Explanation from ChatGPT {-}
 
 When you run `docker compose up` and `down`, Compose is really orchestrating the same Docker primitives you know from `docker build`, `docker run`, `docker stop`, and `docker rm`—but it does it for *all* your services in one go.
 
@@ -128,7 +128,7 @@ When you run `docker compose up` and `down`, Compose is really orchestrating the
 
 ---
 
-### 2. What happens when you run `docker compose up`?
+### 2. What happens when you run `docker compose up`? {-}
 
 1. **Networks & volumes**
    Compose creates any networks and named volumes declared in your file (if they don’t already exist).
@@ -158,7 +158,7 @@ to rebuild images and recreate containers every time.
 
 ---
 
-### 3. What happens when you run `docker compose down`?
+### 3. What happens when you run `docker compose down`? {-}
 
 * **Stops** all running containers in that Compose project (same as `docker stop`).
 * **Removes** those containers and the default network that Compose created.
@@ -176,7 +176,7 @@ to rebuild images and recreate containers every time.
 
 ---
 
-#### TL;DR Workflow
+#### TL;DR Workflow {-}
 
 1. **Write your Dockerfile** in `.`
 2. **Declare** in `docker-compose.yml` both `build: .` and `image: your/name:tag` if you want a custom build **and** a consistent tag
