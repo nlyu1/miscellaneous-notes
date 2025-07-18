@@ -1,0 +1,26 @@
+# Miscellaneous packages
+
+## CMake {-}
+
+## Installing CMake
+
+Installing newest version of cmake: find latest version [here](https://cmake.org/download/), specify version and build (e.g. `4.0.3` is as below): 
+```
+version=4.0
+build=3
+## don't modify from here
+wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
+tar -xzvf cmake-$version.$build.tar.gz
+cd cmake-$version.$build/
+
+./bootstrap
+make -j$(nproc)
+sudo make install
+```
+
+This should have installed cmake to `/usr/local/bin`. If this is this not in path, run 
+
+```
+echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
+```
