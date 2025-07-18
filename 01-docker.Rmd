@@ -54,7 +54,6 @@ Sample dockerfile:
 ```
 FROM pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
 COPY ./simple.py /workspace 
-
 CMD python /workspace/simple.py
 ``` 
 
@@ -192,3 +191,19 @@ to rebuild images and recreate containers every time.
    * leaves images & volumes unless you tell it otherwise
 
 That’s the Compose lifecycle mapping back to the classic Docker commands you already know.
+
+## Installing CMake
+
+Installing newest version of cmake: find latest version [here](https://cmake.org/download/), specify version and build (e.g. `4.0.3` is as below): 
+```
+version=4.0
+build=3
+## don't modify from here
+wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
+tar -xzvf cmake-$version.$build.tar.gz
+cd cmake-$version.$build/
+
+./bootstrap
+make -j$(nproc)
+sudo make install
+```
