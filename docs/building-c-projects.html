@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Miscellany</title>
-  <meta name="description" content="Page not found | Miscellany" />
+  <title>2 Building C++ Projects | Miscellany</title>
+  <meta name="description" content="2 Building C++ Projects | Miscellany" />
   <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Miscellany" />
+  <meta property="og:title" content="2 Building C++ Projects | Miscellany" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Miscellany" />
+  <meta name="twitter:title" content="2 Building C++ Projects | Miscellany" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="docker.html"/>
+<link rel="next" href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -207,19 +207,69 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="building-c-projects" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Building C++ Projects<a href="building-c-projects.html#building-c-projects" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Important components:</p>
+<ol style="list-style-type: decimal">
+<li>CMake <span class="citation">(<a href="#ref-cmake"><strong>cmake?</strong></a>)</span>: systemic orchestration of C++ build processes.</li>
+<li></li>
+</ol>
+<div id="cmake" class="section level2 unnumbered hasAnchor">
+<h2>CMake<a href="building-c-projects.html#cmake" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>See <a href="https://cmake.org/cmake/help/latest/guide/tutorial/index.html">tutorial</a> for comprehensive guide.</p>
+<ul>
+<li>CMake consumes <code>CMakeLists.txt</code> in the source tree. Outputs <code>Makefile</code> (or equivalents) for subsequent building.</li>
+<li>Typical practice: create <code>build</code> directory, populate with <code>cmake</code> outputs, and run build.</li>
+<li>It supports hierarchal specification and multiple build targets.</li>
+</ul>
+<div id="installing-cmake" class="section level3 unnumbered hasAnchor">
+<h3>Installing CMake<a href="building-c-projects.html#installing-cmake" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Installing newest version of cmake: find latest version <a href="https://cmake.org/download/">here</a>, specify version and build (e.g. <code>4.0.3</code> is as below):</p>
+<pre><code>version=4.0
+build=3
+## don&#39;t modify from here
+wget https://cmake.org/files/v$version/cmake-$version.$build.tar.gz
+tar -xzvf cmake-$version.$build.tar.gz
+cd cmake-$version.$build/
+
+./bootstrap
+make -j$(nproc)
+sudo make install</code></pre>
+<p>This should have installed cmake to <code>/usr/local/bin</code>. If this is this not in system path (e.g. <code>cmake</code> is not found), run</p>
+<pre><code>echo &#39;export PATH=/usr/local/bin:$PATH&#39; &gt;&gt; ~/.bashrc
+source ~/.bashrc</code></pre>
+</div>
+<div id="scikit-build-core" class="section level3 unnumbered hasAnchor">
+<h3>Scikit-build-core<a href="building-c-projects.html#scikit-build-core" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><a href="https://scikit-build-core.readthedocs.io/en/latest/">Scikit-build-core</a> is a library for building Python packages from CMake source code.</p>
+<ol style="list-style-type: decimal">
+<li>It consumes a <code>pyproject.toml</code> file, standard for python packaging.</li>
+<li>Running <code>pip install .</code> installs the python package.</li>
+</ol>
+<p>It invokes build backends (e.g. CMake) under the hood to build the package, replacing the need for complicated <code>setup.py</code>.</p>
+</div>
+</div>
+<div id="smart-pointers" class="section level2 unnumbered hasAnchor">
+<h2>Smart pointers<a href="building-c-projects.html#smart-pointers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Great resources:</p>
+<ol style="list-style-type: decimal">
+<li>David Olsen’s <a href="https://www.youtube.com/watch?v=YokY6HzLkXs">talk, CppCon 2022</a></li>
+<li>Mike Shah’s <a href="https://www.youtube.com/playlist?list=PLvv0ScY6vfd8j-tlhYVPYgiIyXduu6m-L">modern C++ series</a>.</li>
+</ol>
+<div id="smart-pointer-deep-research" class="section level3 unnumbered hasAnchor">
+<h3>Smart Pointer deep research<a href="building-c-projects.html#smart-pointer-deep-research" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Thanks! I’ll put together a detailed technical guide on modern C++ smart pointers aimed at an intermediate developer. It will cover how and why they came into use, the problems they solve, how to use them effectively in polymorphic contexts and function interfaces (including <code>const</code> and reference qualifiers), and best practices in modern C++.</p>
+<p>I’ll let you know when it’s ready.</p>
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="docker.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
