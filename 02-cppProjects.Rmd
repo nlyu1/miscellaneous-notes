@@ -3,7 +3,8 @@
 Important components: 
 
 1. CMake [@cmake]: systemic orchestration of C++ build processes. 
-2. 
+2. Scikit-build-core [@scikit-build-core]: building python packages from CMake source code. 
+3. Pybind11: binds C++ functions, classes, and objects to Python. 
 
 ## CMake {#cmake -}
 
@@ -36,7 +37,7 @@ echo 'export PATH=/usr/local/bin:$PATH' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### Scikit-build-core {-}
+## Scikit-build-core {-}
 
 [Scikit-build-core](https://scikit-build-core.readthedocs.io/en/latest/) is a library for building Python packages from CMake source code. 
 
@@ -217,20 +218,10 @@ Finally, regarding const-correctness in returns: returning a `const T*` or `cons
 
 To wrap up, **smart pointers** in C++ were introduced to make memory management safer by automating resource cleanup and clarifying ownership semantics. They originated in the 90s (with early reference-counting ideas) and became standard in the late 90s/2000s with `auto_ptr`, evolving to the robust `unique_ptr`/`shared_ptr` we use today. Smart pointers solve problems of memory leaks and dangling pointers by ensuring objects are properly destroyed when no longer needed. Modern best practices suggest using `unique_ptr` as a default for owning pointers, `shared_ptr` only when needed for sharing, and using raw pointers/references for non-owning uses to keep interfaces clear. When using inheritance, smart pointers behave like raw pointers (respecting polymorphism), and C++ provides casting utilities for shared\_ptr to navigate class hierarchies safely. By following these practices – choosing the right smart pointer and passing/returning it correctly – you can write C++ code that is both safer (less prone to memory errors) and easier to understand in terms of object ownership and lifespan.&#x20;
 
-## Factory methods, modern C++, and PyBind {-}
 
-Great, I’ll prepare a comprehensive guide that covers:
+## Factory Methods, Modern C++ Practices, and Pybind11 for Polymorphic Interfaces
 
-1. Factory methods in modern C++: what they are, how they work with polymorphism and smart pointers, and when to use or avoid them, with concrete examples.
-2. Best practices and toolchains for rigorous, research-grade C++ projects—especially those interfacing with Python and involving computation, linear algebra, and deep learning. This includes CMake, build systems, testing frameworks, and static/dynamic analysis tools.
-3. A clear, detailed tutorial on Pybind11 bindings for polymorphic class hierarchies in C++: how to use trampoline classes, manage object ownership, expose factory methods, and correctly bind base/derived class interfaces so they can be used transparently from Python. I’ll use simplified, annotated code inspired by real-world cases like OpenSpiel to keep it clear.
-
-I’ll let you know as soon as it’s ready.
-
-
-# Factory Methods, Modern C++ Practices, and Pybind11 for Polymorphic Interfaces
-
-## 1. Factory Methods in C++ Design
+### 1. Factory Methods in C++ Design
 
 **What are Factory Methods?** – A Factory Method is a creational design pattern that provides an interface for creating objects, but allows the subclasses or separate functions to decide which concrete class to instantiate. In essence, you call a *factory method* instead of calling a constructor directly. This indirection lets you create objects without specifying the exact class of the object being created. The factory method typically returns a pointer or smart pointer to an abstract base class or interface that the concrete products implement. This promotes **loose coupling**: client code calls the factory interface and doesn’t need to know about the concrete subclasses, making it easier to extend or change implementations later.
 
