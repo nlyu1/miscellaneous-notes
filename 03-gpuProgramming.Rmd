@@ -1,0 +1,8 @@
+# GPU Programming
+
+GPU architecture (5090 example). On the implementation side: 
+
+1. 170 SM cores. 
+2. Each SM core features **4 schedulers** and can hold up to **64 warps**. 
+    - Each warp is **32 execution contexts**, so up to $64 \times 32 = 2048$ execution contexts. 
+3. 
