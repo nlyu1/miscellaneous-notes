@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>5 Rust programming | Miscellany</title>
+  <meta name="description" content="5 Rust programming | Miscellany" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="5 Rust programming | Miscellany" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="5 Rust programming | Miscellany" />
+  
+  
+  
+
+<meta name="author" content="Nicholas Lyu" />
+
+
+<meta name="date" content="2025-09-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="gpu-programming.html"/>
+<link rel="next" href="bibliography.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>1</b> Docker</a>
+<ul>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#basic-commands"><i class="fa fa-check"></i>Basic commands</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#dockerfile"><i class="fa fa-check"></i>Dockerfile</a></li>
+<li class="chapter" data-level="1.1" data-path="docker.html"><a href="docker.html#docker-compose"><i class="fa fa-check"></i><b>1.1</b> Docker compose</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#publishing-images"><i class="fa fa-check"></i>Publishing images</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#explanation-from-chatgpt"><i class="fa fa-check"></i>Explanation from ChatGPT</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="docker.html"><a href="docker.html#which-dockerfile-is-used-do-i-see-the-build-logs"><i class="fa fa-check"></i><b>1.1.1</b> 1. Which Dockerfile is used? Do I see the build logs?</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#what-happens-when-you-run-docker-compose-up"><i class="fa fa-check"></i>2. What happens when you run <code>docker compose up</code>?</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#what-happens-when-you-run-docker-compose-down"><i class="fa fa-check"></i>3. What happens when you run <code>docker compose down</code>?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="building-c-projects.html"><a href="building-c-projects.html"><i class="fa fa-check"></i><b>2</b> Building C++ Projects</a>
+<ul>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#cmake"><i class="fa fa-check"></i>CMake</a>
+<ul>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#installing-cmake"><i class="fa fa-check"></i>Installing CMake</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#scikit-build-core"><i class="fa fa-check"></i>Scikit-build-core</a></li>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#smart-pointers"><i class="fa fa-check"></i>Smart pointers</a>
+<ul>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#smart-pointer-deep-research"><i class="fa fa-check"></i>Smart Pointer deep research</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><i class="fa fa-check"></i><b>3</b> Understanding Smart Pointers in C++: History, Problems Solved, and Best Practices</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#background-origins-of-smart-pointers-in-c"><i class="fa fa-check"></i><b>3.1</b> Background: Origins of Smart Pointers in C++</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#the-problems-with-raw-pointers-and-how-smart-pointers-fix-them"><i class="fa fa-check"></i><b>3.2</b> The Problems with Raw Pointers (and How Smart Pointers Fix Them)</a></li>
+<li class="chapter" data-level="3.3" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#types-of-smart-pointers-in-modern-c"><i class="fa fa-check"></i><b>3.3</b> Types of Smart Pointers in Modern C++</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#polymorphism-dynamic-dispatch-and-smart-pointers"><i class="fa fa-check"></i><b>3.4</b> Polymorphism, Dynamic Dispatch, and Smart Pointers</a></li>
+<li class="chapter" data-level="3.5" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#modern-best-practices-for-using-smart-pointers"><i class="fa fa-check"></i><b>3.5</b> Modern Best Practices for Using Smart Pointers</a></li>
+<li class="chapter" data-level="3.6" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#using-pointers-and-smart-pointers-in-function-interfaces"><i class="fa fa-check"></i><b>3.6</b> Using Pointers and Smart Pointers in Function Interfaces</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#passing-smart-pointers-to-functions-parameters"><i class="fa fa-check"></i><b>3.6.1</b> Passing Smart Pointers to Functions (Parameters)</a></li>
+<li class="chapter" data-level="3.6.2" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#returning-pointers-or-smart-pointers-from-functions"><i class="fa fa-check"></i><b>3.6.2</b> Returning Pointers or Smart Pointers from Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#factory-methods-modern-c-practices-and-pybind11-for-polymorphic-interfaces"><i class="fa fa-check"></i><b>3.7</b> Factory Methods, Modern C++ Practices, and Pybind11 for Polymorphic Interfaces</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#factory-methods-in-c-design"><i class="fa fa-check"></i><b>3.7.1</b> 1. Factory Methods in C++ Design</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#modern-c-tools-and-practices-for-safe-performant-code"><i class="fa fa-check"></i><b>3.8</b> 2. Modern C++ Tools and Practices for Safe, Performant Code</a></li>
+<li class="chapter" data-level="3.9" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#best-practices-for-pybind11-with-polymorphic-c-interfaces"><i class="fa fa-check"></i><b>3.9</b> 3. Best Practices for Pybind11 with Polymorphic C++ Interfaces</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#exposing-c-classes-and-inheritance-to-python"><i class="fa fa-check"></i><b>3.9.1</b> <strong>Exposing C++ Classes and Inheritance to Python</strong></a></li>
+<li class="chapter" data-level="3.9.2" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#memory-management-and-ownership-between-c-and-python"><i class="fa fa-check"></i><b>3.9.2</b> <strong>Memory Management and Ownership between C++ and Python</strong></a></li>
+<li class="chapter" data-level="3.9.3" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#allowing-python-to-override-c-virtual-functions-trampoline-classes"><i class="fa fa-check"></i><b>3.9.3</b> <strong>Allowing Python to Override C++ Virtual Functions (Trampoline Classes)</strong></a></li>
+<li class="chapter" data-level="3.9.4" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#end-to-end-example-and-best-practices-summary"><i class="fa fa-check"></i><b>3.9.4</b> <strong>End-to-End Example and Best Practices Summary</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#c-history"><i class="fa fa-check"></i>C++ history</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="gpu-programming.html"><a href="gpu-programming.html"><i class="fa fa-check"></i><b>4</b> GPU Programming</a></li>
+<li class="chapter" data-level="5" data-path="rust-programming.html"><a href="rust-programming.html"><i class="fa fa-check"></i><b>5</b> Rust programming</a>
+<ul>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#initializing-a-project"><i class="fa fa-check"></i>Initializing a project</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#modules-and-code-organization"><i class="fa fa-check"></i>Modules and code organization</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#applying-style-linters"><i class="fa fa-check"></i>Applying style linters</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#async-programming"><i class="fa fa-check"></i>Async programming</a>
+<ul>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#lazy-asyncs-and-tokio-main-macro"><i class="fa fa-check"></i>Lazy asyncs, and tokio-main macro</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#minimal-server-implementation"><i class="fa fa-check"></i>Minimal server implementation</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#wakers"><i class="fa fa-check"></i>Wakers</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Miscellany</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rust-programming" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">5</span> Rust programming<a href="rust-programming.html#rust-programming" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="initializing-a-project" class="section level2 unnumbered hasAnchor">
+<h2>Initializing a project<a href="rust-programming.html#initializing-a-project" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><a href="https://doc.rust-lang.org/book/ch01-03-hello-cargo.html">Reference page</a></p>
+<ol style="list-style-type: decimal">
+<li><code>cargo new [package_name]</code>.</li>
+<li>Different commands:
+<ul>
+<li><code>cargo build</code>: compiles <code>target/debug</code>. <code>cargo build --release</code> goes to <code>target/release</code>.</li>
+<li><code>cargo run</code>: build + run</li>
+<li><code>cargo check</code>: quick check</li>
+</ul></li>
+<li>Running upon specifying a directory:
+<ul>
+<li>File not registered in <code>Cargo.toml</code>: put in <code>examples</code> directory and run <code>cargo run --example hello-redis</code></li>
+<li>Register <code>bin</code> in <code>Cargo.toml</code> and <code>cargo run --bin [name} -- {--args}</code>.</li>
+</ul></li>
+</ol>
+</div>
+<div id="modules-and-code-organization" class="section level2 unnumbered hasAnchor">
+<h2>Modules and code organization<a href="rust-programming.html#modules-and-code-organization" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li>Calling <code>mod A</code> or <code>mod crate::path_to::A</code> brings <code>A</code> scope.</li>
+<li>Calling <code>pub mod A</code> brings <code>A</code> into scope <strong>and</strong> enables the current module’s parents reference <code>module.A</code></li>
+<li>Calling <code>use A::submodule</code> directly makes <code>submodule::something_else</code> available in the scope of <code>module</code>.</li>
+<li>Calling <code>pub use A::submodule</code> allows parents to use <code>module::submodule</code>.</li>
+</ol>
+</div>
+<div id="applying-style-linters" class="section level2 unnumbered hasAnchor">
+<h2>Applying style linters<a href="rust-programming.html#applying-style-linters" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>VSCode setting:</p>
+<ol style="list-style-type: decimal">
+<li><code>rustup component add rustfmt</code></li>
+<li>Open user settings (JSON), and add</li>
+</ol>
+<div class="sourceCode" id="cb29"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb29-1"><a href="rust-programming.html#cb29-1" tabindex="-1"></a><span class="er">&quot;</span><span class="ot">[</span><span class="er">rust</span><span class="ot">]</span><span class="er">&quot;:</span> <span class="fu">{</span></span>
+<span id="cb29-2"><a href="rust-programming.html#cb29-2" tabindex="-1"></a>    <span class="dt">&quot;editor.defaultFormatter&quot;</span><span class="fu">:</span> <span class="st">&quot;rust-lang.rust&quot;</span><span class="fu">,</span></span>
+<span id="cb29-3"><a href="rust-programming.html#cb29-3" tabindex="-1"></a>    <span class="dt">&quot;editor.formatOnSave&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
+<span id="cb29-4"><a href="rust-programming.html#cb29-4" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<ol start="3" style="list-style-type: decimal">
+<li>In the command palette, enable “Format document”.</li>
+</ol>
+</div>
+<div id="async-programming" class="section level2 unnumbered hasAnchor">
+<h2>Async programming<a href="rust-programming.html#async-programming" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><a href="https://tokio.rs/tokio/tutorial/hello-tokio"><code>tokio</code> tutorial</a> and <a href="https://doc.rust-lang.org/book/ch17-00-async-await.html">Rust book chapter</a>.</li>
+</ol>
+<div id="lazy-asyncs-and-tokio-main-macro" class="section level3 unnumbered hasAnchor">
+<h3>Lazy asyncs, and tokio-main macro<a href="rust-programming.html#lazy-asyncs-and-tokio-main-macro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unlike languages like OCaml (similar construct <code>Deferred.t</code>), async operations are lazy. An async return value is analogous to a zero-argument closure. The macro <code>#[tokio::main]</code> provides the syntactic sugar to block on an async function:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb30-1"><a href="rust-programming.html#cb30-1" tabindex="-1"></a><span class="at">#[</span><span class="pp">tokio::</span>main<span class="at">]</span></span>
+<span id="cb30-2"><a href="rust-programming.html#cb30-2" tabindex="-1"></a><span class="kw">async</span> <span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb30-3"><a href="rust-programming.html#cb30-3" tabindex="-1"></a>    <span class="pp">println!</span>(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span></span>
+<span id="cb30-4"><a href="rust-programming.html#cb30-4" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb30-5"><a href="rust-programming.html#cb30-5" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="rust-programming.html#cb30-6" tabindex="-1"></a><span class="co">// Equivalent code: </span></span>
+<span id="cb30-7"><a href="rust-programming.html#cb30-7" tabindex="-1"></a><span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb30-8"><a href="rust-programming.html#cb30-8" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> rt <span class="op">=</span> <span class="pp">tokio::runtime::Runtime::</span>new()<span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb30-9"><a href="rust-programming.html#cb30-9" tabindex="-1"></a>    rt<span class="op">.</span>block_on(<span class="kw">async</span> <span class="op">{</span></span>
+<span id="cb30-10"><a href="rust-programming.html#cb30-10" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span></span>
+<span id="cb30-11"><a href="rust-programming.html#cb30-11" tabindex="-1"></a>    <span class="op">}</span>)</span>
+<span id="cb30-12"><a href="rust-programming.html#cb30-12" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p><strong>Important implication of lazy futures</strong></p>
+<p>Fundamental <strong>future construct in Rust</strong> is <code>poll</code>. Different futures operations result in different polling behavior, resulting in concurrency / parallelism.</p>
+<ol style="list-style-type: decimal">
+<li>When <code>.await</code> is called sequentially, e.g. <code>f1.await; f2.await;</code>, the underlying tasks are executed sequentially, since <code>task1</code> essentially “starts executing” when <code>f1.await</code> gets called, <strong>unlike eager languages</strong>. After obtaining a future:
+<ul>
+<li><code>future.await</code>: this does not imply concurrency by itself.</li>
+<li><code>tokio::spawn</code>: scheduler is free to run task whenever it sees fit. For CPU intensive tasks, this might result in parallelism.</li>
+<li><code>tokio::select!</code>: make concurrent progress on multiple futures and wait for the first one to complete, and <code>tokio::join!</code> waits for all of them to complete.</li>
+</ul></li>
+<li>This is <strong>unlike</strong> eager-future languages (e.g. OCaml), where sequential <code>.await</code>s immediately imply concurrency.</li>
+</ol>
+</div>
+<div id="minimal-server-implementation" class="section level3 unnumbered hasAnchor">
+<h3>Minimal server implementation<a href="rust-programming.html#minimal-server-implementation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Some networking basics:</p>
+<ol style="list-style-type: decimal">
+<li>Server on a specific <code>ip</code> address exposes ports.</li>
+<li>A port can host multiple (thousands+) of <code>sockets</code>. Each socket denotes a specific connection. Each time a client connects, OS creates a unique socket for that conversation.</li>
+<li>The OS identifies each TCP connection with a unique <strong>4-tuple</strong> of (source IP, source port, destination IP, destination port).
+<ul>
+<li>Source IP and port are the same for every connection, while each client connects from its own IP and a random <strong>ephemeral port</strong>.</li>
+</ul></li>
+</ol>
+<p>Tokio notes:</p>
+<ol style="list-style-type: decimal">
+<li><code>tokio::spawn</code> consumes a closure and starts a task and returns a <code>JoinHandle</code> which, upon <code>await</code>, returns a <code>Result&lt;return_type&gt;</code>. Each task only requires 64-bytes of memory.</li>
+<li>Argument closure to <code>tokio::spawn</code> must <strong>implement <code>Send</code> trait</strong>. Realistically, this means that any captured variable implements <code>Send</code> (i.e. safe to transfer across threads).</li>
+</ol>
+<div class="sourceCode" id="cb31"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb31-1"><a href="rust-programming.html#cb31-1" tabindex="-1"></a><span class="kw">use</span> <span class="pp">mini_redis::</span><span class="op">{</span>Connection<span class="op">,</span> Frame<span class="op">};</span></span>
+<span id="cb31-2"><a href="rust-programming.html#cb31-2" tabindex="-1"></a><span class="kw">use</span> <span class="pp">tokio::net::</span><span class="op">{</span>TcpListener<span class="op">,</span> TcpStream<span class="op">};</span></span>
+<span id="cb31-3"><a href="rust-programming.html#cb31-3" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="rust-programming.html#cb31-4" tabindex="-1"></a><span class="co">// https://tokio.rs/tokio/tutorial/spawning</span></span>
+<span id="cb31-5"><a href="rust-programming.html#cb31-5" tabindex="-1"></a><span class="co">// Copy to `src/main.rs` to run.</span></span>
+<span id="cb31-6"><a href="rust-programming.html#cb31-6" tabindex="-1"></a></span>
+<span id="cb31-7"><a href="rust-programming.html#cb31-7" tabindex="-1"></a><span class="at">#[</span><span class="pp">tokio::</span>main<span class="at">]</span></span>
+<span id="cb31-8"><a href="rust-programming.html#cb31-8" tabindex="-1"></a><span class="kw">async</span> <span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb31-9"><a href="rust-programming.html#cb31-9" tabindex="-1"></a>    <span class="co">// Bind the listener to the address</span></span>
+<span id="cb31-10"><a href="rust-programming.html#cb31-10" tabindex="-1"></a>    <span class="kw">let</span> listener <span class="op">=</span> <span class="pp">TcpListener::</span>bind(<span class="st">&quot;127.0.0.1:6379&quot;</span>)<span class="op">.</span><span class="kw">await</span><span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb31-11"><a href="rust-programming.html#cb31-11" tabindex="-1"></a></span>
+<span id="cb31-12"><a href="rust-programming.html#cb31-12" tabindex="-1"></a>    <span class="cf">loop</span> <span class="op">{</span></span>
+<span id="cb31-13"><a href="rust-programming.html#cb31-13" tabindex="-1"></a>        <span class="co">// The second item contains the IP and port of the new connection.</span></span>
+<span id="cb31-14"><a href="rust-programming.html#cb31-14" tabindex="-1"></a>        <span class="co">// This blocks until some socket connects to the listener&#39;s port</span></span>
+<span id="cb31-15"><a href="rust-programming.html#cb31-15" tabindex="-1"></a>        <span class="kw">let</span> (socket<span class="op">,</span> socket_addr) <span class="op">=</span> listener<span class="op">.</span>accept()<span class="op">.</span><span class="kw">await</span><span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb31-16"><a href="rust-programming.html#cb31-16" tabindex="-1"></a>        <span class="co">// This prints out e.g. `127.0.0.1:58646`. Last number is random for each connection.</span></span>
+<span id="cb31-17"><a href="rust-programming.html#cb31-17" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">&quot;Got connection from {:?}&quot;</span><span class="op">,</span> socket_addr)<span class="op">;</span></span>
+<span id="cb31-18"><a href="rust-programming.html#cb31-18" tabindex="-1"></a></span>
+<span id="cb31-19"><a href="rust-programming.html#cb31-19" tabindex="-1"></a>        <span class="co">// This implementation blocks the main loop for each incoming socket connection</span></span>
+<span id="cb31-20"><a href="rust-programming.html#cb31-20" tabindex="-1"></a>        <span class="co">// process(socket).await;</span></span>
+<span id="cb31-21"><a href="rust-programming.html#cb31-21" tabindex="-1"></a>        <span class="co">// Alternatively, spawn a new task for each inbound socket</span></span>
+<span id="cb31-22"><a href="rust-programming.html#cb31-22" tabindex="-1"></a>        <span class="pp">tokio::</span>spawn(<span class="kw">async</span> <span class="kw">move</span> <span class="op">{</span></span>
+<span id="cb31-23"><a href="rust-programming.html#cb31-23" tabindex="-1"></a>            process(socket)<span class="op">.</span><span class="kw">await</span><span class="op">;</span></span>
+<span id="cb31-24"><a href="rust-programming.html#cb31-24" tabindex="-1"></a>        <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb31-25"><a href="rust-programming.html#cb31-25" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb31-26"><a href="rust-programming.html#cb31-26" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb31-27"><a href="rust-programming.html#cb31-27" tabindex="-1"></a></span>
+<span id="cb31-28"><a href="rust-programming.html#cb31-28" tabindex="-1"></a><span class="kw">async</span> <span class="kw">fn</span> process(socket<span class="op">:</span> TcpStream) <span class="op">{</span></span>
+<span id="cb31-29"><a href="rust-programming.html#cb31-29" tabindex="-1"></a>    <span class="co">// The `Connection` lets us read/write redis **frames** instead of</span></span>
+<span id="cb31-30"><a href="rust-programming.html#cb31-30" tabindex="-1"></a>    <span class="co">// byte streams. The `Connection` type is defined by mini-redis.</span></span>
+<span id="cb31-31"><a href="rust-programming.html#cb31-31" tabindex="-1"></a>    <span class="kw">let</span> <span class="kw">mut</span> connection <span class="op">=</span> <span class="pp">Connection::</span>new(socket)<span class="op">;</span></span>
+<span id="cb31-32"><a href="rust-programming.html#cb31-32" tabindex="-1"></a></span>
+<span id="cb31-33"><a href="rust-programming.html#cb31-33" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">let</span> <span class="cn">Some</span>(frame) <span class="op">=</span> connection<span class="op">.</span>read_frame()<span class="op">.</span><span class="kw">await</span><span class="op">.</span>unwrap() <span class="op">{</span></span>
+<span id="cb31-34"><a href="rust-programming.html#cb31-34" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">&quot;GOT: {:?}&quot;</span><span class="op">,</span> frame)<span class="op">;</span></span>
+<span id="cb31-35"><a href="rust-programming.html#cb31-35" tabindex="-1"></a></span>
+<span id="cb31-36"><a href="rust-programming.html#cb31-36" tabindex="-1"></a>        <span class="co">// Respond with an error</span></span>
+<span id="cb31-37"><a href="rust-programming.html#cb31-37" tabindex="-1"></a>        <span class="kw">let</span> response <span class="op">=</span> <span class="pp">Frame::</span><span class="bu">Error</span>(<span class="st">&quot;unimplemented&quot;</span><span class="op">.</span>to_string())<span class="op">;</span></span>
+<span id="cb31-38"><a href="rust-programming.html#cb31-38" tabindex="-1"></a>        connection<span class="op">.</span>write_frame(<span class="op">&amp;</span>response)<span class="op">.</span><span class="kw">await</span><span class="op">.</span>unwrap()<span class="op">;</span></span>
+<span id="cb31-39"><a href="rust-programming.html#cb31-39" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb31-40"><a href="rust-programming.html#cb31-40" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div id="rough-edge-send" class="section level4 unnumbered hasAnchor">
+<h4>Rough-edge: Send<a href="rust-programming.html#rough-edge-send" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>TO be more precise, in the argument closure to <code>tokio::spawn</code>, all data whose ownership span intersects with <code>.await</code> calls must implement <code>Send</code> trait. Note that <code>RC&lt;..&gt;</code> does not implement <code>Send</code>:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb32-1"><a href="rust-programming.html#cb32-1" tabindex="-1"></a><span class="kw">use</span> <span class="pp">tokio::task::</span>yield_now<span class="op">;</span></span>
+<span id="cb32-2"><a href="rust-programming.html#cb32-2" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::rc::</span>Rc<span class="op">;</span></span>
+<span id="cb32-3"><a href="rust-programming.html#cb32-3" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="rust-programming.html#cb32-4" tabindex="-1"></a><span class="co">// This function would compile </span></span>
+<span id="cb32-5"><a href="rust-programming.html#cb32-5" tabindex="-1"></a><span class="at">#[</span><span class="pp">tokio::</span>main<span class="at">]</span></span>
+<span id="cb32-6"><a href="rust-programming.html#cb32-6" tabindex="-1"></a><span class="kw">async</span> <span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb32-7"><a href="rust-programming.html#cb32-7" tabindex="-1"></a>    <span class="pp">tokio::</span>spawn(<span class="kw">async</span> <span class="op">{</span></span>
+<span id="cb32-8"><a href="rust-programming.html#cb32-8" tabindex="-1"></a>        <span class="co">// The scope forces `rc` to drop before `.await`.</span></span>
+<span id="cb32-9"><a href="rust-programming.html#cb32-9" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb32-10"><a href="rust-programming.html#cb32-10" tabindex="-1"></a>            <span class="kw">let</span> rc <span class="op">=</span> <span class="pp">Rc::</span>new(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span></span>
+<span id="cb32-11"><a href="rust-programming.html#cb32-11" tabindex="-1"></a>            <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> rc)<span class="op">;</span></span>
+<span id="cb32-12"><a href="rust-programming.html#cb32-12" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb32-13"><a href="rust-programming.html#cb32-13" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="rust-programming.html#cb32-14" tabindex="-1"></a>        <span class="co">// `rc` is no longer used. It is **not** persisted when</span></span>
+<span id="cb32-15"><a href="rust-programming.html#cb32-15" tabindex="-1"></a>        <span class="co">// the task yields to the scheduler</span></span>
+<span id="cb32-16"><a href="rust-programming.html#cb32-16" tabindex="-1"></a>        yield_now()<span class="op">.</span><span class="kw">await</span><span class="op">;</span></span>
+<span id="cb32-17"><a href="rust-programming.html#cb32-17" tabindex="-1"></a>    <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb32-18"><a href="rust-programming.html#cb32-18" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb32-19"><a href="rust-programming.html#cb32-19" tabindex="-1"></a></span>
+<span id="cb32-20"><a href="rust-programming.html#cb32-20" tabindex="-1"></a><span class="co">// This function **would not** compile</span></span>
+<span id="cb32-21"><a href="rust-programming.html#cb32-21" tabindex="-1"></a><span class="at">#[</span><span class="pp">tokio::</span>main<span class="at">]</span></span>
+<span id="cb32-22"><a href="rust-programming.html#cb32-22" tabindex="-1"></a><span class="kw">async</span> <span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb32-23"><a href="rust-programming.html#cb32-23" tabindex="-1"></a>    <span class="pp">tokio::</span>spawn(<span class="kw">async</span> <span class="op">{</span></span>
+<span id="cb32-24"><a href="rust-programming.html#cb32-24" tabindex="-1"></a>        <span class="kw">let</span> rc <span class="op">=</span> <span class="pp">Rc::</span>new(<span class="st">&quot;hello&quot;</span>)<span class="op">;</span></span>
+<span id="cb32-25"><a href="rust-programming.html#cb32-25" tabindex="-1"></a></span>
+<span id="cb32-26"><a href="rust-programming.html#cb32-26" tabindex="-1"></a>        <span class="co">// `rc` is used after `.await`. It must be persisted to</span></span>
+<span id="cb32-27"><a href="rust-programming.html#cb32-27" tabindex="-1"></a>        <span class="co">// the task&#39;s state.</span></span>
+<span id="cb32-28"><a href="rust-programming.html#cb32-28" tabindex="-1"></a>        yield_now()<span class="op">.</span><span class="kw">await</span><span class="op">;</span></span>
+<span id="cb32-29"><a href="rust-programming.html#cb32-29" tabindex="-1"></a></span>
+<span id="cb32-30"><a href="rust-programming.html#cb32-30" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">&quot;{}&quot;</span><span class="op">,</span> rc)<span class="op">;</span></span>
+<span id="cb32-31"><a href="rust-programming.html#cb32-31" tabindex="-1"></a>    <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb32-32"><a href="rust-programming.html#cb32-32" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<div id="rust-futures-under-the-hood" class="section level4 unnumbered hasAnchor">
+<h4>Rust futures under the hood<a href="rust-programming.html#rust-futures-under-the-hood" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In Rust, a Future is a <strong>struct</strong> which implements the <code>Future</code> trait with <code>Output</code> type and <code>poll</code> method.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb33-1"><a href="rust-programming.html#cb33-1" tabindex="-1"></a><span class="kw">struct</span> Delay <span class="op">{</span>when<span class="op">:</span> Instant<span class="op">,}</span></span>
+<span id="cb33-2"><a href="rust-programming.html#cb33-2" tabindex="-1"></a></span>
+<span id="cb33-3"><a href="rust-programming.html#cb33-3" tabindex="-1"></a><span class="kw">impl</span> <span class="bu">Future</span> <span class="cf">for</span> Delay <span class="op">{</span></span>
+<span id="cb33-4"><a href="rust-programming.html#cb33-4" tabindex="-1"></a>    <span class="kw">type</span> Output <span class="op">=</span> <span class="op">&amp;</span><span class="ot">&#39;static</span> <span class="dt">str</span><span class="op">;</span></span>
+<span id="cb33-5"><a href="rust-programming.html#cb33-5" tabindex="-1"></a>    <span class="kw">fn</span> poll(<span class="kw">self</span><span class="op">:</span> Pin<span class="op">&lt;&amp;</span><span class="kw">mut</span> <span class="dt">Self</span><span class="op">&gt;,</span> cx<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> Context<span class="op">&lt;</span><span class="ot">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> Poll<span class="op">&lt;&amp;</span><span class="ot">&#39;static</span> <span class="dt">str</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb33-6"><a href="rust-programming.html#cb33-6" tabindex="-1"></a>        <span class="cf">if</span> <span class="pp">Instant::</span>now() <span class="op">&gt;=</span> <span class="kw">self</span><span class="op">.</span>when <span class="op">{</span></span>
+<span id="cb33-7"><a href="rust-programming.html#cb33-7" tabindex="-1"></a>            <span class="pp">println!</span>(<span class="st">&quot;Hello world&quot;</span>)<span class="op">;</span></span>
+<span id="cb33-8"><a href="rust-programming.html#cb33-8" tabindex="-1"></a>            <span class="pp">Poll::</span>Ready(<span class="st">&quot;done&quot;</span>)</span>
+<span id="cb33-9"><a href="rust-programming.html#cb33-9" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb33-10"><a href="rust-programming.html#cb33-10" tabindex="-1"></a>            <span class="co">// Ignore this line for now.</span></span>
+<span id="cb33-11"><a href="rust-programming.html#cb33-11" tabindex="-1"></a>            cx<span class="op">.</span>waker()<span class="op">.</span>wake_by_ref()<span class="op">;</span></span>
+<span id="cb33-12"><a href="rust-programming.html#cb33-12" tabindex="-1"></a>            <span class="pp">Poll::</span>Pending</span>
+<span id="cb33-13"><a href="rust-programming.html#cb33-13" tabindex="-1"></a>        <span class="op">}}}</span></span>
+<span id="cb33-14"><a href="rust-programming.html#cb33-14" tabindex="-1"></a></span>
+<span id="cb33-15"><a href="rust-programming.html#cb33-15" tabindex="-1"></a><span class="at">#[</span><span class="pp">tokio::</span>main<span class="at">]</span></span>
+<span id="cb33-16"><a href="rust-programming.html#cb33-16" tabindex="-1"></a><span class="kw">async</span> <span class="kw">fn</span> main() <span class="op">{</span></span>
+<span id="cb33-17"><a href="rust-programming.html#cb33-17" tabindex="-1"></a>    <span class="kw">let</span> when <span class="op">=</span> <span class="pp">Instant::</span>now() <span class="op">+</span> <span class="pp">Duration::</span>from_millis(<span class="dv">10</span>)<span class="op">;</span></span>
+<span id="cb33-18"><a href="rust-programming.html#cb33-18" tabindex="-1"></a>    <span class="kw">let</span> future <span class="op">=</span> Delay <span class="op">{</span> when <span class="op">};</span></span>
+<span id="cb33-19"><a href="rust-programming.html#cb33-19" tabindex="-1"></a></span>
+<span id="cb33-20"><a href="rust-programming.html#cb33-20" tabindex="-1"></a>    <span class="kw">let</span> out <span class="op">=</span> future<span class="op">.</span><span class="kw">await</span><span class="op">;</span></span>
+<span id="cb33-21"><a href="rust-programming.html#cb33-21" tabindex="-1"></a>    <span class="pp">assert_eq!</span>(out<span class="op">,</span> <span class="st">&quot;done&quot;</span>)<span class="op">;</span></span>
+<span id="cb33-22"><a href="rust-programming.html#cb33-22" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Under the hood, the async-main roughly returns a future of the following construction:</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb34-1"><a href="rust-programming.html#cb34-1" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::future::</span><span class="bu">Future</span><span class="op">;</span></span>
+<span id="cb34-2"><a href="rust-programming.html#cb34-2" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::pin::</span>Pin<span class="op">;</span></span>
+<span id="cb34-3"><a href="rust-programming.html#cb34-3" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::task::</span><span class="op">{</span>Context<span class="op">,</span> Poll<span class="op">};</span></span>
+<span id="cb34-4"><a href="rust-programming.html#cb34-4" tabindex="-1"></a><span class="kw">use</span> <span class="pp">std::time::</span><span class="op">{</span>Duration<span class="op">,</span> Instant<span class="op">};</span></span>
+<span id="cb34-5"><a href="rust-programming.html#cb34-5" tabindex="-1"></a></span>
+<span id="cb34-6"><a href="rust-programming.html#cb34-6" tabindex="-1"></a><span class="kw">enum</span> MainFuture <span class="op">{</span></span>
+<span id="cb34-7"><a href="rust-programming.html#cb34-7" tabindex="-1"></a>    <span class="co">// Initialized, never polled</span></span>
+<span id="cb34-8"><a href="rust-programming.html#cb34-8" tabindex="-1"></a>    State0<span class="op">,</span></span>
+<span id="cb34-9"><a href="rust-programming.html#cb34-9" tabindex="-1"></a>    <span class="co">// Waiting on `Delay`, i.e. the `future.await` line.</span></span>
+<span id="cb34-10"><a href="rust-programming.html#cb34-10" tabindex="-1"></a>    State1(Delay)<span class="op">,</span></span>
+<span id="cb34-11"><a href="rust-programming.html#cb34-11" tabindex="-1"></a>    <span class="co">// The future has completed.</span></span>
+<span id="cb34-12"><a href="rust-programming.html#cb34-12" tabindex="-1"></a>    Terminated<span class="op">,</span></span>
+<span id="cb34-13"><a href="rust-programming.html#cb34-13" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb34-14"><a href="rust-programming.html#cb34-14" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="rust-programming.html#cb34-15" tabindex="-1"></a><span class="kw">impl</span> <span class="bu">Future</span> <span class="cf">for</span> MainFuture <span class="op">{</span></span>
+<span id="cb34-16"><a href="rust-programming.html#cb34-16" tabindex="-1"></a>    <span class="kw">type</span> Output <span class="op">=</span> ()<span class="op">;</span></span>
+<span id="cb34-17"><a href="rust-programming.html#cb34-17" tabindex="-1"></a>    <span class="kw">fn</span> poll(<span class="kw">mut</span> <span class="kw">self</span><span class="op">:</span> Pin<span class="op">&lt;&amp;</span><span class="kw">mut</span> <span class="dt">Self</span><span class="op">&gt;,</span> cx<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> Context<span class="op">&lt;</span><span class="ot">&#39;_</span><span class="op">&gt;</span>)</span>
+<span id="cb34-18"><a href="rust-programming.html#cb34-18" tabindex="-1"></a>        <span class="op">-&gt;</span> Poll<span class="op">&lt;</span>()<span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb34-19"><a href="rust-programming.html#cb34-19" tabindex="-1"></a>        <span class="kw">use</span> <span class="pp">MainFuture::</span><span class="op">*;</span></span>
+<span id="cb34-20"><a href="rust-programming.html#cb34-20" tabindex="-1"></a>        <span class="cf">loop</span> <span class="op">{</span></span>
+<span id="cb34-21"><a href="rust-programming.html#cb34-21" tabindex="-1"></a>            <span class="cf">match</span> <span class="op">*</span><span class="kw">self</span> <span class="op">{</span></span>
+<span id="cb34-22"><a href="rust-programming.html#cb34-22" tabindex="-1"></a>                State0 <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb34-23"><a href="rust-programming.html#cb34-23" tabindex="-1"></a>                    <span class="kw">let</span> when <span class="op">=</span> <span class="pp">Instant::</span>now() <span class="op">+</span></span>
+<span id="cb34-24"><a href="rust-programming.html#cb34-24" tabindex="-1"></a>                        <span class="pp">Duration::</span>from_millis(<span class="dv">10</span>)<span class="op">;</span></span>
+<span id="cb34-25"><a href="rust-programming.html#cb34-25" tabindex="-1"></a>                    <span class="kw">let</span> future <span class="op">=</span> Delay <span class="op">{</span> when <span class="op">};</span></span>
+<span id="cb34-26"><a href="rust-programming.html#cb34-26" tabindex="-1"></a>                    <span class="op">*</span><span class="kw">self</span> <span class="op">=</span> State1(future)<span class="op">;</span></span>
+<span id="cb34-27"><a href="rust-programming.html#cb34-27" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb34-28"><a href="rust-programming.html#cb34-28" tabindex="-1"></a>                State1(<span class="kw">ref</span> <span class="kw">mut</span> my_future) <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb34-29"><a href="rust-programming.html#cb34-29" tabindex="-1"></a>                    <span class="cf">match</span> <span class="pp">Pin::</span>new(my_future)<span class="op">.</span>poll(cx) <span class="op">{</span></span>
+<span id="cb34-30"><a href="rust-programming.html#cb34-30" tabindex="-1"></a>                        <span class="pp">Poll::</span>Ready(out) <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb34-31"><a href="rust-programming.html#cb34-31" tabindex="-1"></a>                            <span class="pp">assert_eq!</span>(out<span class="op">,</span> <span class="st">&quot;done&quot;</span>)<span class="op">;</span></span>
+<span id="cb34-32"><a href="rust-programming.html#cb34-32" tabindex="-1"></a>                            <span class="op">*</span><span class="kw">self</span> <span class="op">=</span> Terminated<span class="op">;</span></span>
+<span id="cb34-33"><a href="rust-programming.html#cb34-33" tabindex="-1"></a>                            <span class="cf">return</span> <span class="pp">Poll::</span>Ready(())<span class="op">;</span></span>
+<span id="cb34-34"><a href="rust-programming.html#cb34-34" tabindex="-1"></a>                        <span class="op">}</span></span>
+<span id="cb34-35"><a href="rust-programming.html#cb34-35" tabindex="-1"></a>                        <span class="pp">Poll::</span>Pending <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb34-36"><a href="rust-programming.html#cb34-36" tabindex="-1"></a>                            <span class="cf">return</span> <span class="pp">Poll::</span>Pending<span class="op">;</span></span>
+<span id="cb34-37"><a href="rust-programming.html#cb34-37" tabindex="-1"></a>                        <span class="op">}}}</span></span>
+<span id="cb34-38"><a href="rust-programming.html#cb34-38" tabindex="-1"></a>                Terminated <span class="op">=&gt;</span> <span class="op">{</span></span>
+<span id="cb34-39"><a href="rust-programming.html#cb34-39" tabindex="-1"></a>                    <span class="pp">panic!</span>(<span class="st">&quot;future polled after completion&quot;</span>)</span>
+<span id="cb34-40"><a href="rust-programming.html#cb34-40" tabindex="-1"></a>                <span class="op">}}}}}</span></span></code></pre></div>
+<p>Salient features:</p>
+<ol style="list-style-type: decimal">
+<li>When polled (i.e. computation should proceed), it proceeds as much as possible.
+<ul>
+<li>In this case, up to the <code>.await</code> statement in the async-main function.</li>
+</ul></li>
+<li>After encountering a child future, it polls the nested future and returns its value.</li>
+<li>Proceed until we’ve completed the last child future.</li>
+</ol>
+<p>The runtime therefore just needs to _call poll in a smart way__ on the outermost future.</p>
+</div>
+</div>
+<div id="wakers" class="section level3 unnumbered hasAnchor">
+<h3>Wakers<a href="rust-programming.html#wakers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Without the <code>cx: &amp;mut Context</code> argument to <code>fn poll(self: Pin&lt;&amp;mut Self&gt;, cx: &amp;mut Context) -&gt; Poll&lt;Self::Output&gt;;</code>, we could only implement a continuously polling system which burns CPU cycles. A future can call its <code>cx.waker().wake()</code> to signify that it’s ready to take new tasks.</p>
+<ul>
+<li>A future returning <code>Poll::Pending</code> <strong>must ensure</strong> that the waker is signaled at some point, else it may hang indefinitely.</li>
+</ul>
+<p>This results in the new <code>Delay</code> poll method:</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode rust"><code class="sourceCode rust"><span id="cb35-1"><a href="rust-programming.html#cb35-1" tabindex="-1"></a><span class="kw">fn</span> poll(<span class="kw">self</span><span class="op">:</span> Pin<span class="op">&lt;&amp;</span><span class="kw">mut</span> <span class="dt">Self</span><span class="op">&gt;,</span> cx<span class="op">:</span> <span class="op">&amp;</span><span class="kw">mut</span> Context<span class="op">&lt;</span><span class="ot">&#39;_</span><span class="op">&gt;</span>)</span>
+<span id="cb35-2"><a href="rust-programming.html#cb35-2" tabindex="-1"></a>        <span class="op">-&gt;</span> Poll<span class="op">&lt;&amp;</span><span class="ot">&#39;static</span> <span class="dt">str</span><span class="op">&gt;</span></span>
+<span id="cb35-3"><a href="rust-programming.html#cb35-3" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb35-4"><a href="rust-programming.html#cb35-4" tabindex="-1"></a>    <span class="cf">if</span> <span class="pp">Instant::</span>now() <span class="op">&gt;=</span> <span class="kw">self</span><span class="op">.</span>when <span class="op">{</span></span>
+<span id="cb35-5"><a href="rust-programming.html#cb35-5" tabindex="-1"></a>        <span class="pp">println!</span>(<span class="st">&quot;Hello world&quot;</span>)<span class="op">;</span></span>
+<span id="cb35-6"><a href="rust-programming.html#cb35-6" tabindex="-1"></a>        <span class="pp">Poll::</span>Ready(<span class="st">&quot;done&quot;</span>)</span>
+<span id="cb35-7"><a href="rust-programming.html#cb35-7" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb35-8"><a href="rust-programming.html#cb35-8" tabindex="-1"></a>        <span class="co">// Get a handle to the waker for the current task</span></span>
+<span id="cb35-9"><a href="rust-programming.html#cb35-9" tabindex="-1"></a>        <span class="kw">let</span> waker <span class="op">=</span> cx<span class="op">.</span>waker()<span class="op">.</span>clone()<span class="op">;</span></span>
+<span id="cb35-10"><a href="rust-programming.html#cb35-10" tabindex="-1"></a>        <span class="kw">let</span> when <span class="op">=</span> <span class="kw">self</span><span class="op">.</span>when<span class="op">;</span></span>
+<span id="cb35-11"><a href="rust-programming.html#cb35-11" tabindex="-1"></a>        <span class="co">// Spawn a timer thread.</span></span>
+<span id="cb35-12"><a href="rust-programming.html#cb35-12" tabindex="-1"></a>        <span class="pp">thread::</span>spawn(<span class="kw">move</span> <span class="op">||</span> <span class="op">{</span></span>
+<span id="cb35-13"><a href="rust-programming.html#cb35-13" tabindex="-1"></a>            <span class="kw">let</span> now <span class="op">=</span> <span class="pp">Instant::</span>now()<span class="op">;</span></span>
+<span id="cb35-14"><a href="rust-programming.html#cb35-14" tabindex="-1"></a>            <span class="cf">if</span> now <span class="op">&lt;</span> when <span class="op">{</span> <span class="pp">thread::</span>sleep(when <span class="op">-</span> now)<span class="op">;</span> <span class="op">}</span></span>
+<span id="cb35-15"><a href="rust-programming.html#cb35-15" tabindex="-1"></a>            waker<span class="op">.</span>wake()<span class="op">;</span></span>
+<span id="cb35-16"><a href="rust-programming.html#cb35-16" tabindex="-1"></a>        <span class="op">}</span>)<span class="op">;</span></span>
+<span id="cb35-17"><a href="rust-programming.html#cb35-17" tabindex="-1"></a>        <span class="pp">Poll::</span>Pending</span>
+<span id="cb35-18"><a href="rust-programming.html#cb35-18" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="gpu-programming.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="bibliography.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

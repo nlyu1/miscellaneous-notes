@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>1 Docker | Miscellany</title>
+  <meta name="description" content="1 Docker | Miscellany" />
+  <meta name="generator" content="bookdown 0.41 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="1 Docker | Miscellany" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="1 Docker | Miscellany" />
+  
+  
+  
+
+<meta name="author" content="Nicholas Lyu" />
+
+
+<meta name="date" content="2025-09-14" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="building-c-projects.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="1" data-path="docker.html"><a href="docker.html"><i class="fa fa-check"></i><b>1</b> Docker</a>
+<ul>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#basic-commands"><i class="fa fa-check"></i>Basic commands</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#dockerfile"><i class="fa fa-check"></i>Dockerfile</a></li>
+<li class="chapter" data-level="1.1" data-path="docker.html"><a href="docker.html#docker-compose"><i class="fa fa-check"></i><b>1.1</b> Docker compose</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#publishing-images"><i class="fa fa-check"></i>Publishing images</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#explanation-from-chatgpt"><i class="fa fa-check"></i>Explanation from ChatGPT</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="docker.html"><a href="docker.html#which-dockerfile-is-used-do-i-see-the-build-logs"><i class="fa fa-check"></i><b>1.1.1</b> 1. Which Dockerfile is used? Do I see the build logs?</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#what-happens-when-you-run-docker-compose-up"><i class="fa fa-check"></i>2. What happens when you run <code>docker compose up</code>?</a></li>
+<li class="chapter" data-level="" data-path="docker.html"><a href="docker.html#what-happens-when-you-run-docker-compose-down"><i class="fa fa-check"></i>3. What happens when you run <code>docker compose down</code>?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="building-c-projects.html"><a href="building-c-projects.html"><i class="fa fa-check"></i><b>2</b> Building C++ Projects</a>
+<ul>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#cmake"><i class="fa fa-check"></i>CMake</a>
+<ul>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#installing-cmake"><i class="fa fa-check"></i>Installing CMake</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#scikit-build-core"><i class="fa fa-check"></i>Scikit-build-core</a></li>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#smart-pointers"><i class="fa fa-check"></i>Smart pointers</a>
+<ul>
+<li class="chapter" data-level="" data-path="building-c-projects.html"><a href="building-c-projects.html#smart-pointer-deep-research"><i class="fa fa-check"></i>Smart Pointer deep research</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><i class="fa fa-check"></i><b>3</b> Understanding Smart Pointers in C++: History, Problems Solved, and Best Practices</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#background-origins-of-smart-pointers-in-c"><i class="fa fa-check"></i><b>3.1</b> Background: Origins of Smart Pointers in C++</a></li>
+<li class="chapter" data-level="3.2" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#the-problems-with-raw-pointers-and-how-smart-pointers-fix-them"><i class="fa fa-check"></i><b>3.2</b> The Problems with Raw Pointers (and How Smart Pointers Fix Them)</a></li>
+<li class="chapter" data-level="3.3" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#types-of-smart-pointers-in-modern-c"><i class="fa fa-check"></i><b>3.3</b> Types of Smart Pointers in Modern C++</a></li>
+<li class="chapter" data-level="3.4" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#polymorphism-dynamic-dispatch-and-smart-pointers"><i class="fa fa-check"></i><b>3.4</b> Polymorphism, Dynamic Dispatch, and Smart Pointers</a></li>
+<li class="chapter" data-level="3.5" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#modern-best-practices-for-using-smart-pointers"><i class="fa fa-check"></i><b>3.5</b> Modern Best Practices for Using Smart Pointers</a></li>
+<li class="chapter" data-level="3.6" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#using-pointers-and-smart-pointers-in-function-interfaces"><i class="fa fa-check"></i><b>3.6</b> Using Pointers and Smart Pointers in Function Interfaces</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#passing-smart-pointers-to-functions-parameters"><i class="fa fa-check"></i><b>3.6.1</b> Passing Smart Pointers to Functions (Parameters)</a></li>
+<li class="chapter" data-level="3.6.2" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#returning-pointers-or-smart-pointers-from-functions"><i class="fa fa-check"></i><b>3.6.2</b> Returning Pointers or Smart Pointers from Functions</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#factory-methods-modern-c-practices-and-pybind11-for-polymorphic-interfaces"><i class="fa fa-check"></i><b>3.7</b> Factory Methods, Modern C++ Practices, and Pybind11 for Polymorphic Interfaces</a>
+<ul>
+<li class="chapter" data-level="3.7.1" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#factory-methods-in-c-design"><i class="fa fa-check"></i><b>3.7.1</b> 1. Factory Methods in C++ Design</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#modern-c-tools-and-practices-for-safe-performant-code"><i class="fa fa-check"></i><b>3.8</b> 2. Modern C++ Tools and Practices for Safe, Performant Code</a></li>
+<li class="chapter" data-level="3.9" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#best-practices-for-pybind11-with-polymorphic-c-interfaces"><i class="fa fa-check"></i><b>3.9</b> 3. Best Practices for Pybind11 with Polymorphic C++ Interfaces</a>
+<ul>
+<li class="chapter" data-level="3.9.1" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#exposing-c-classes-and-inheritance-to-python"><i class="fa fa-check"></i><b>3.9.1</b> <strong>Exposing C++ Classes and Inheritance to Python</strong></a></li>
+<li class="chapter" data-level="3.9.2" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#memory-management-and-ownership-between-c-and-python"><i class="fa fa-check"></i><b>3.9.2</b> <strong>Memory Management and Ownership between C++ and Python</strong></a></li>
+<li class="chapter" data-level="3.9.3" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#allowing-python-to-override-c-virtual-functions-trampoline-classes"><i class="fa fa-check"></i><b>3.9.3</b> <strong>Allowing Python to Override C++ Virtual Functions (Trampoline Classes)</strong></a></li>
+<li class="chapter" data-level="3.9.4" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#end-to-end-example-and-best-practices-summary"><i class="fa fa-check"></i><b>3.9.4</b> <strong>End-to-End Example and Best Practices Summary</strong></a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html"><a href="understanding-smart-pointers-in-c-history-problems-solved-and-best-practices.html#c-history"><i class="fa fa-check"></i>C++ history</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="gpu-programming.html"><a href="gpu-programming.html"><i class="fa fa-check"></i><b>4</b> GPU Programming</a></li>
+<li class="chapter" data-level="5" data-path="rust-programming.html"><a href="rust-programming.html"><i class="fa fa-check"></i><b>5</b> Rust programming</a>
+<ul>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#initializing-a-project"><i class="fa fa-check"></i>Initializing a project</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#modules-and-code-organization"><i class="fa fa-check"></i>Modules and code organization</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#applying-style-linters"><i class="fa fa-check"></i>Applying style linters</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#async-programming"><i class="fa fa-check"></i>Async programming</a>
+<ul>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#lazy-asyncs-and-tokio-main-macro"><i class="fa fa-check"></i>Lazy asyncs, and tokio-main macro</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#minimal-server-implementation"><i class="fa fa-check"></i>Minimal server implementation</a></li>
+<li class="chapter" data-level="" data-path="rust-programming.html"><a href="rust-programming.html#wakers"><i class="fa fa-check"></i>Wakers</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="bibliography.html"><a href="bibliography.html"><i class="fa fa-check"></i>Bibliography</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Miscellany</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="docker" class="section level1 hasAnchor" number="1">
+<h1><span class="header-section-number">1</span> Docker<a href="docker.html#docker" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Notes following full stack open’s <a href="https://fullstackopen.com/en/part12">docker chapter</a>.</p>
+<div id="basic-commands" class="section level2 unnumbered hasAnchor">
+<h2>Basic commands<a href="docker.html#basic-commands" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="definition">
+<p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 1.1  (containers and images) </strong></span>A docker <strong>image</strong> is an immutable file (collection). A <strong>container</strong> is a running (and mutable) instance of an image. Container can be crystallized into containers.</p>
+</div>
+<ol style="list-style-type: decimal">
+<li><strong>Running containers</strong>: <code>docker container run hello-world</code>
+<ul>
+<li><strong>Interactive mode</strong>: <code>docker container run -it ubuntu bash</code>.</li>
+<li><code>docker container run [OPTIONS] IMAGE [COMMAND]</code></li>
+<li><em>Remove after execution</em>: <code>docker container run --rm ubuntu ls .</code></li>
+<li>Run with name: <code>docker container run -it --name [name] [doncainter name] [command]</code></li>
+<li>Run with binding: <code>docker container run ... -v FILE-IN-HOST:FILE-IN-CONTAINER</code>. Binds will be visible on both sides.</li>
+</ul></li>
+<li><strong>Image ops</strong>:
+<ul>
+<li><strong>Listing</strong>: <code>docker image ls</code></li>
+</ul></li>
+<li><strong>Container operations</strong>:
+<ul>
+<li>Listing: <code>docker container ls -a</code> (includes exited ones)</li>
+<li>Deleting: <code>docker container rm [ID prefix]</code>.</li>
+<li><strong>Starting an initialized container</strong>: <code>docker start [container name]</code>
+<ul>
+<li>Start with <span class="math inline">\(-it\)</span> to create a binding, interactive process</li>
+</ul></li>
+<li><strong>Kill main process of running container</strong>: <code>docker kill [container]</code></li>
+<li><strong>Create additional connection</strong>: <code>docker exec -it [name] /bin/bash</code>.</li>
+</ul></li>
+<li><strong>Committing &amp; manipulation</strong>:
+<ul>
+<li><code>docker commit CONTAINER-ID-OR-CONTAINER-NAME NEW-IMAGE-NAME</code></li>
+<li><strong>Copy</strong>: docker container cp [local path] [image-name]:[container path]</li>
+</ul></li>
+</ol>
+<p>Sample docker image: <code>pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel</code></p>
+<p>Sample workflow</p>
+<pre><code>
+docker container ls -a 
+docker image ls -a 
+
+docker container run -it --gpus all --name gpu_starter pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+
+docker start gpu_starter
+docker attach 
+docker exec -it gpu_starter /bin/bash
+docker kill gpu_starter 
+
+docker container cp 01-docker.Rmd  gpu_starter:/workspace</code></pre>
+</div>
+<div id="dockerfile" class="section level2 unnumbered hasAnchor">
+<h2>Dockerfile<a href="docker.html#dockerfile" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Dockerfile defines the workflow for building an image.</p>
+<p>Sample dockerfile:</p>
+<pre><code>FROM pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+COPY ./simple.py /workspace 
+CMD python /workspace/simple.py</code></pre>
+<p>Where <code>simple.py</code></p>
+<ol style="list-style-type: decimal">
+<li>Run in the dockerfile folder:
+<code>docker build . -t gpu_starter</code></li>
+<li>Running: <code>docker container run --gpus all --name gpu -p 8888:8888 --rm -it gpu_starter</code></li>
+</ol>
+</div>
+<div id="docker-compose" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Docker compose<a href="docker.html#docker-compose" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Note that the workflow above still involves (1) using the <code>Dockerfile</code> to build an image, and (2) running the image with specified parameters. The second can be automated by <code>docker compose</code>. Equivalent specification in <code>docker-compose.yml</code>:</p>
+<pre><code>services:
+  app: 
+    image: pytorch/pytorch:2.7.0-cuda11.8-cudnn9-devel
+    build: .
+    stdin_open: true 
+    tty: true 
+    ports:
+      - 8888:8888
+    gpus: all 
+    volumes: 
+      - ~/Downloads:/workspace/downloads</code></pre>
+<ul>
+<li>Running <code>docker compose up --build</code> will create the image and
+<ul>
+<li>Images are retained. Remove by <code>docker compose down --rmi all</code></li>
+<li>Use <code>docker compose up --build -d</code> to detach after building</li>
+</ul></li>
+<li>Compose up will also automatically create containers. Use <code>docker compose down</code> to remove all containers for compose services.</li>
+<li>Run <code>docker container ls -a</code> and <code>docker attach [container]</code> to interact</li>
+</ul>
+</div>
+<div id="publishing-images" class="section level2 unnumbered hasAnchor">
+<h2>Publishing images<a href="docker.html#publishing-images" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To publish, run</p>
+<pre><code>docker login
+docker tag sample_image:latest nlyu1/sample_image:latest
+docker push nlyu1/sample_image:latest</code></pre>
+<p>To pull from elsewhere, run <code>docker pull nlyu1/sample_image:latest</code>.</p>
+</div>
+<div id="explanation-from-chatgpt" class="section level2 unnumbered hasAnchor">
+<h2>Explanation from ChatGPT<a href="docker.html#explanation-from-chatgpt" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>When you run <code>docker compose up</code> and <code>down</code>, Compose is really orchestrating the same Docker primitives you know from <code>docker build</code>, <code>docker run</code>, <code>docker stop</code>, and <code>docker rm</code>—but it does it for <em>all</em> your services in one go.</p>
+<hr />
+<div id="which-dockerfile-is-used-do-i-see-the-build-logs" class="section level3 hasAnchor" number="1.1.1">
+<h3><span class="header-section-number">1.1.1</span> 1. Which Dockerfile is used? Do I see the build logs?<a href="docker.html#which-dockerfile-is-used-do-i-see-the-build-logs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><strong>Build context &amp; Dockerfile location</strong>
+Because you have</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb5-1"><a href="docker.html#cb5-1" tabindex="-1"></a><span class="fu">build</span><span class="kw">:</span><span class="at"> .</span></span></code></pre></div>
+<p>Compose will look in <code>.</code> (your project root) for a file named <code>Dockerfile</code>.</p></li>
+<li><p><strong>Image tag</strong>
+You also set</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb6-1"><a href="docker.html#cb6-1" tabindex="-1"></a><span class="fu">image</span><span class="kw">:</span><span class="at"> hiyouga/llamafactory:latest</span></span></code></pre></div>
+<p>so after it builds that Dockerfile, it tags the resulting image as <code>hiyouga/llamafactory:latest</code>.</p></li>
+<li><p><strong>Logs</strong></p>
+<ul>
+<li>If the image doesn’t already exist locally (or if you pass <code>--build</code>), Compose will invoke <code>docker build .</code> for you and stream the usual build logs right into your terminal.</li>
+<li>On subsequent <code>up</code> calls, if nothing has changed in the build context, Compose will skip the rebuild unless you force it.</li>
+</ul></li>
+</ul>
+<hr />
+</div>
+<div id="what-happens-when-you-run-docker-compose-up" class="section level3 unnumbered hasAnchor">
+<h3>2. What happens when you run <code>docker compose up</code>?<a href="docker.html#what-happens-when-you-run-docker-compose-up" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>Networks &amp; volumes</strong>
+Compose creates any networks and named volumes declared in your file (if they don’t already exist).</p></li>
+<li><p><strong>Images</strong></p>
+<ul>
+<li>For services with a <code>build:</code> block, it builds (or reuses) the image.</li>
+<li>For services without <code>build:</code>, it pulls from registry if missing.</li>
+</ul></li>
+<li><p><strong>Containers</strong></p>
+<ul>
+<li><p>If no container exists for <code>llamafactory</code>, it <strong>creates</strong> one (same as <code>docker create …</code>) and then <strong>starts</strong> it.</p></li>
+<li><p>If a container <strong>has</strong> already been created by Compose:</p>
+<ul>
+<li><strong>Unchanged config:</strong> it simply starts the stopped container (so you keep your previous data in volumes, etc.).</li>
+<li><strong>Changed config or forced recreate:</strong> Compose will tear down the old container and spin up a fresh one.</li>
+</ul></li>
+</ul></li>
+<li><p><strong>Flags you recognize</strong></p>
+<ul>
+<li><code>stdin_open: true</code> + <code>tty: true</code> → the <code>-it</code> behavior</li>
+<li><code>ipc: host</code>, <code>gpus: all</code>, <code>ports:</code>, <code>volumes:</code> → passed straight through under the hood</li>
+</ul></li>
+</ol>
+<p>You can always run</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb7-1"><a href="docker.html#cb7-1" tabindex="-1"></a><span class="ex">docker</span> compose up <span class="at">--build</span> <span class="at">--force-recreate</span></span></code></pre></div>
+<p>to rebuild images and recreate containers every time.</p>
+<hr />
+</div>
+<div id="what-happens-when-you-run-docker-compose-down" class="section level3 unnumbered hasAnchor">
+<h3>3. What happens when you run <code>docker compose down</code>?<a href="docker.html#what-happens-when-you-run-docker-compose-down" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li><p><strong>Stops</strong> all running containers in that Compose project (same as <code>docker stop</code>).</p></li>
+<li><p><strong>Removes</strong> those containers and the default network that Compose created.</p></li>
+<li><p><strong>Leaves</strong> behind:</p>
+<ul>
+<li>The images you built or pulled.</li>
+<li>Any named volumes (so your data survives) unless you add <code>-v</code>.</li>
+</ul></li>
+<li><p>If you want to clean everything up, you can do:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb8-1"><a href="docker.html#cb8-1" tabindex="-1"></a><span class="ex">docker</span> compose down <span class="at">--rmi</span> all <span class="at">-v</span></span></code></pre></div>
+<p>which also removes images (<code>--rmi all</code>) and named volumes (<code>-v</code>).</p></li>
+</ul>
+<hr />
+<div id="tldr-workflow" class="section level4 unnumbered hasAnchor">
+<h4>TL;DR Workflow<a href="docker.html#tldr-workflow" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ol style="list-style-type: decimal">
+<li><p><strong>Write your Dockerfile</strong> in <code>.</code></p></li>
+<li><p><strong>Declare</strong> in <code>docker-compose.yml</code> both <code>build: .</code> and <code>image: your/name:tag</code> if you want a custom build <strong>and</strong> a consistent tag</p></li>
+<li><p><strong><code>docker compose up</code></strong></p>
+<ul>
+<li>builds (if needed),</li>
+<li>creates (if needed),</li>
+<li>starts (or restarts) your containers</li>
+</ul></li>
+<li><p><strong><code>docker compose down</code></strong></p>
+<ul>
+<li>stops &amp; removes containers and network,</li>
+<li>leaves images &amp; volumes unless you tell it otherwise</li>
+</ul></li>
+</ol>
+<p>That’s the Compose lifecycle mapping back to the classic Docker commands you already know.</p>
+
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="building-c-projects.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
